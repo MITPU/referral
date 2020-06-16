@@ -18,3 +18,5 @@ mvnw.cmd
 /nbdist/
 /.nb-gradle/
 build/
+
+*.mwb.bak
