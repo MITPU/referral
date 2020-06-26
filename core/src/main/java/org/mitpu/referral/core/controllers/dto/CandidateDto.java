@@ -1,46 +1,69 @@
 package org.mitpu.referral.core.controllers.dto;
 
-public class CandidateDto {
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
-    private int id;
+public class CandidateDto extends Dto {
 
+    @Max(Integer.MAX_VALUE)
+    private Integer id;
+
+    @Size(min = 1, max = 80)
     private String firstname;
 
+    @Size(min = 1, max = 45)
     private String middlename;
 
+    @Size(min = 1, max = 80)
     private String lastname;
 
+    @Email
     private String email;
 
+    @Size(min = 1, max = 15)
     private String phone;
 
+    @Size(min = 1, max = 50)
     private String street1;
 
+    @Size(min = 1, max = 50)
     private String street2;
 
+    @Size(min = 1, max = 50)
     private String city;
 
+    @Size(min = 1, max = 50)
     private String state;
 
+    @Size(min = 1, max = 15)
     private String zip;
 
+    @Size(min = 1, max = 50)
     private String country;
 
-    private byte workAuthorization;
+    @Max(4)
+    private Byte workAuthorization;
 
+    @Size(min = 1, max = 200)
     private String linkedin;
 
-    private byte stage;
+    @Max(4)
+    private Byte stage;
 
-    private byte status;
+    @Max(5)
+    private Byte status;
 
-    private int coordinatorId;
+    private Integer coordinatorId;
 
-    public int getId() {
+    public CandidateDto() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -132,11 +155,11 @@ public class CandidateDto {
         this.country = country;
     }
 
-    public byte getWorkAuthorization() {
+    public Byte getWorkAuthorization() {
         return workAuthorization;
     }
 
-    public void setWorkAuthorization(byte workAuthorization) {
+    public void setWorkAuthorization(Byte workAuthorization) {
         this.workAuthorization = workAuthorization;
     }
 
@@ -148,27 +171,27 @@ public class CandidateDto {
         this.linkedin = linkedin;
     }
 
-    public byte getStage() {
+    public Byte getStage() {
         return stage;
     }
 
-    public void setStage(byte stage) {
+    public void setStage(Byte stage) {
         this.stage = stage;
     }
 
-    public byte getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
-    public int getCoordinatorId() {
+    public Integer getCoordinatorId() {
         return coordinatorId;
     }
 
-    public void setCoordinatorId(int coordinatorId) {
+    public void setCoordinatorId(Integer coordinatorId) {
         this.coordinatorId = coordinatorId;
     }
 }

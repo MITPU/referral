@@ -2,33 +2,225 @@ package org.mitpu.referral.core.repositories.models;
 
 public class Candidate extends Person {
 
-    private byte workAuthorization;
+    private WorkAuthorization workAuthorization;
 
     private String linkedin;
 
-    private byte stage;
+    private Stage stage;
 
-    private byte status;
+    private Status status;
 
-    private int coordinatorId;
+    private Integer coordinatorId;
+
+    public enum WorkAuthorization {
+        CPT(0), OPT(1), H1B(2), GC(3), CITIZEN(4);
+
+        public static WorkAuthorization getWorkAuthorization(byte code) {
+            switch (code) {
+            case 0:
+                return CPT;
+            case 1:
+                return OPT;
+            case 2:
+                return H1B;
+            case 3:
+                return GC;
+            case 4:
+                return CITIZEN;
+            default:
+                return null;
+            }
+        }
+
+        public final byte code;
+
+        private WorkAuthorization(int code) {
+            this.code = (byte) code;
+        }
+    }
+
+    public enum Stage {
+        INITIAL(0), READY_TO_REFER(1), MISMATCH_POSITION(2), RESUME_REVISION(3), TO_REFERRER(4);
+
+        public static Stage getStage(byte code) {
+            switch (code) {
+            case 0:
+                return INITIAL;
+            case 1:
+                return READY_TO_REFER;
+            case 2:
+                return MISMATCH_POSITION;
+            case 3:
+                return TO_REFERRER;
+            default:
+                return null;
+            }
+        }
+
+        public final byte code;
+
+        private Stage(int code) {
+            this.code = (byte) code;
+        }
+    }
+
+    public enum Status {
+        NEW(0), IN_PROGRESS(1), DEACTIVE(2), GOT_JOB(3), DONE(4), BLOCKED(5);
+
+        public static Status getStatus(byte code) {
+            switch (code) {
+            case 0:
+                return NEW;
+            case 1:
+                return IN_PROGRESS;
+            case 2:
+                return DEACTIVE;
+            case 3:
+                return GOT_JOB;
+            case 4:
+                return DONE;
+            case 5:
+                return BLOCKED;
+            default:
+                return null;
+            }
+        }
+
+        public final byte code;
+
+        private Status(int code) {
+            this.code = (byte) code;
+        }
+    }
+
+    // Builder class
+    public static class CandidateBuilder {
+        private Integer id;
+
+        private String firstname;
+
+        private String middlename;
+
+        private String lastname;
+
+        private String email;
+
+        private String phone;
+
+        private String street1;
+
+        private String street2;
+
+        private String city;
+
+        private String state;
+
+        private String zip;
+
+        private String country;
+
+        private WorkAuthorization workAuthorization;
+
+        private String linkedin;
+
+        private Stage stage;
+
+        private Status status;
+
+        private Integer coordinatorId;
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public void setFirstname(String firstname) {
+            this.firstname = firstname;
+        }
+
+        public void setMiddlename(String middlename) {
+            this.middlename = middlename;
+        }
+
+        public void setLastname(String lastname) {
+            this.lastname = lastname;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public void setStreet1(String street1) {
+            this.street1 = street1;
+        }
+
+        public void setStreet2(String street2) {
+            this.street2 = street2;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public void setZip(String zip) {
+            this.zip = zip;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
+
+        public void setWorkAuthorization(WorkAuthorization workAuthorization) {
+            this.workAuthorization = workAuthorization;
+        }
+
+        public void setLinkedin(String linkedin) {
+            this.linkedin = linkedin;
+        }
+
+        public void setStage(Stage stage) {
+            this.stage = stage;
+        }
+
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public void setCoordinatorId(Integer coordinatorId) {
+            this.coordinatorId = coordinatorId;
+        }
+
+        public Candidate build() {
+            return new Candidate(this);
+        }
+    }
 
     public Candidate() {
     }
 
-    public Candidate(byte workAuthorization, String linkedin, byte stage, byte status, int coordinatorId) {
-        super();
-        this.workAuthorization = workAuthorization;
-        this.linkedin = linkedin;
-        this.stage = stage;
-        this.status = status;
-        this.coordinatorId = coordinatorId;
+    public Candidate(CandidateBuilder candidateBuilder) {
+        super(candidateBuilder.id, candidateBuilder.firstname, candidateBuilder.middlename, candidateBuilder.lastname,
+              candidateBuilder.email, candidateBuilder.phone, candidateBuilder.street1, candidateBuilder.street2,
+              candidateBuilder.city, candidateBuilder.state, candidateBuilder.zip, candidateBuilder.country);
+        this.workAuthorization = candidateBuilder.workAuthorization;
+        this.linkedin = candidateBuilder.linkedin;
+        this.stage = candidateBuilder.stage;
+        this.status = candidateBuilder.status;
+        this.coordinatorId = candidateBuilder.coordinatorId;
     }
 
-    public byte getWorkAuthorization() {
+    public WorkAuthorization getWorkAuthorization() {
         return workAuthorization;
     }
 
-    public void setWorkAuthorization(byte workAuthorization) {
+    public void setWorkAuthorization(WorkAuthorization workAuthorization) {
         this.workAuthorization = workAuthorization;
     }
 
@@ -40,27 +232,27 @@ public class Candidate extends Person {
         this.linkedin = linkedin;
     }
 
-    public byte getStage() {
+    public Stage getStage() {
         return stage;
     }
 
-    public void setStage(byte stage) {
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public byte getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public int getCoordinatorId() {
+    public Integer getCoordinatorId() {
         return coordinatorId;
     }
 
-    public void setCoordinatorId(int coordinatorId) {
+    public void setCoordinatorId(Integer coordinatorId) {
         this.coordinatorId = coordinatorId;
     }
 }

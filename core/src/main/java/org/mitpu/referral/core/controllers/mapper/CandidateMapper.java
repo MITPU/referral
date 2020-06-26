@@ -15,9 +15,10 @@ public class CandidateMapper {
         candidate.setId(candidateDto.getId());
         candidate.setLinkedin(candidateDto.getLinkedin());
         candidate.setCoordinatorId(candidateDto.getCoordinatorId());
-        candidate.setStage(candidateDto.getStage());
-        candidate.setStatus(candidateDto.getStatus());
-        candidate.setWorkAuthorization(candidateDto.getWorkAuthorization());
+        candidate.setStage(Candidate.Stage.getStage(candidateDto.getStage()));
+        candidate.setStatus(Candidate.Status.getStatus(candidateDto.getStatus()));
+        candidate.setWorkAuthorization(
+                Candidate.WorkAuthorization.getWorkAuthorization(candidateDto.getWorkAuthorization()));
         candidate.setCity(candidateDto.getCity());
         candidate.setCountry(candidateDto.getCountry());
         candidate.setEmail(candidateDto.getEmail());
@@ -40,9 +41,9 @@ public class CandidateMapper {
         candidateDto.setId(candidate.getId());
         candidateDto.setLinkedin(candidate.getLinkedin());
         candidateDto.setCoordinatorId(candidate.getCoordinatorId());
-        candidateDto.setStage(candidate.getStage());
-        candidateDto.setStatus(candidate.getStatus());
-        candidateDto.setWorkAuthorization(candidate.getWorkAuthorization());
+        candidateDto.setStage(candidate.getStage().code);
+        candidateDto.setStatus(candidate.getStatus().code);
+        candidateDto.setWorkAuthorization(candidate.getWorkAuthorization().code);
         candidateDto.setCity(candidate.getCity());
         candidateDto.setCountry(candidate.getCountry());
         candidateDto.setEmail(candidate.getEmail());

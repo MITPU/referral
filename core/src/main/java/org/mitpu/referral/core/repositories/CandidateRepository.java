@@ -1,7 +1,6 @@
 package org.mitpu.referral.core.repositories;
 
 import org.mitpu.referral.core.repositories.models.Candidate;
-import org.mitpu.referral.core.repositories.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -17,42 +16,44 @@ public class CandidateRepository {
     }
 
     public Candidate findById(int id) {
-        System.out.println("AAA=" + id);
-        Object[] argForPerson = new Object[] {id};
-        String queryForPerson = "SELECT * FROM person WHERE id = ?";
-        Person person = jdbcTemplate.queryForObject(queryForPerson, argForPerson,
-                                                    (rs, rowNum) -> new Person(rs.getInt("id"),
-                                                                               rs.getString("firstname"),
-                                                                               rs.getString("middlename"),
-                                                                               rs.getString("lastname"),
-                                                                               rs.getString("email"),
-                                                                               rs.getString("phone"),
-                                                                               rs.getString("street1"),
-                                                                               rs.getString("street2"),
-                                                                               rs.getString("city"),
-                                                                               rs.getString("state"),
-                                                                               rs.getString("zip"),
-                                                                               rs.getString("country")));
-        Object[] argForCandidate = new Object[] {id};
-        String queryForCandidate = "SELECT * FROM candidate WHERE id = ?";
-        Candidate candidate = jdbcTemplate.queryForObject(queryForCandidate, argForCandidate,
-                                                          (rs, rowNum) -> new Candidate(rs.getByte("workauthorization"),
-                                                                                        rs.getString("linkedin"),
-                                                                                        rs.getByte("stage"),
-                                                                                        rs.getByte("status"),
-                                                                                        rs.getInt("coordinator_id")));
+        Candidate candidate = null;
+        try {
+            Candidate.CandidateBuilder candidateBuilder = new Candidate.CandidateBuilder();
 
-        candidate.setFirstname(person.getFirstname());
-        candidate.setMiddlename(person.getMiddlename());
-        candidate.setLastname(person.getLastname());
-        candidate.setEmail(person.getEmail());
-        candidate.setPhone(person.getPhone());
-        candidate.setStreet1(person.getStreet1());
-        candidate.setStreet2(person.getStreet2());
-        candidate.setCity(person.getCity());
-        candidate.setState(person.getState());
-        candidate.setZip(person.getZip());
-        candidate.setCountry(person.getCountry());
+            Object[] argForPerson = new Object[] {id};
+            String queryForPerson = "SELECT * FROM person WHERE id = ?";
+            jdbcTemplate.queryForObject(queryForPerson, argForPerson, (rs, rowNum) -> {
+                candidateBuilder.setId(rs.getInt("id"));
+                candidateBuilder.setFirstname(rs.getString("firstname"));
+                candidateBuilder.setMiddlename(rs.getString("middlename"));
+                candidateBuilder.setLastname(rs.getString("lastname"));
+                candidateBuilder.setEmail(rs.getString("email"));
+                candidateBuilder.setPhone(rs.getString("phone"));
+                candidateBuilder.setStreet1(rs.getString("street1"));
+                candidateBuilder.setStreet2(rs.getString("street2"));
+                candidateBuilder.setCity(rs.getString("city"));
+                candidateBuilder.setState(rs.getString("state"));
+                candidateBuilder.setZip(rs.getString("zip"));
+                candidateBuilder.setCountry(rs.getString("country"));
+                return null;
+            });
+
+            Object[] argForCandidate = new Object[] {id};
+            String queryForCandidate = "SELECT * FROM candidate WHERE id = ?";
+            jdbcTemplate.queryForObject(queryForCandidate, argForCandidate, (rs, rowNum) -> {
+                candidateBuilder.setWorkAuthorization(
+                        Candidate.WorkAuthorization.getWorkAuthorization(rs.getByte("workauthorization")));
+                candidateBuilder.setLinkedin(rs.getString("linkedin"));
+                candidateBuilder.setStage(Candidate.Stage.getStage(rs.getByte("stage")));
+                candidateBuilder.setStatus(Candidate.Status.getStatus(rs.getByte("status")));
+                candidateBuilder.setCoordinatorId(rs.getInt("coordinator_id"));
+                return null;
+            });
+
+            candidate = candidateBuilder.build();
+        } catch (Exception e) {
+            candidate = null;
+        }
         return candidate;
     }
 }

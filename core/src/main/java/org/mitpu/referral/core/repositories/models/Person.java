@@ -2,7 +2,7 @@ package org.mitpu.referral.core.repositories.models;
 
 public class Person {
 
-    private int id;
+    private Integer id;
 
     private String firstname;
 
@@ -29,7 +29,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(int id, String firstname, String middlename, String lastname, String email, String phone,
+    public Person(Integer id, String firstname, String middlename, String lastname, String email, String phone,
                   String street1, String street2, String city, String state, String zip, String country) {
         this.id = id;
         this.firstname = firstname;
@@ -45,11 +45,11 @@ public class Person {
         this.country = country;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

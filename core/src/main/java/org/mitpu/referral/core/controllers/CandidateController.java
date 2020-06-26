@@ -1,6 +1,9 @@
 package org.mitpu.referral.core.controllers;
 
 import org.mitpu.referral.core.controllers.dto.CandidateDto;
+import org.mitpu.referral.core.controllers.dto.validation.Validation;
+import org.mitpu.referral.core.controllers.dto.validation.ValidationException;
+import org.mitpu.referral.core.controllers.dto.validation.ValidationFactory;
 import org.mitpu.referral.core.controllers.mapper.CandidateMapper;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.mitpu.referral.core.services.main.CandidateService;
@@ -26,10 +29,27 @@ public class CandidateController {
     }
 
     @RequestMapping(path = "/candidate/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCandidate(@PathVariable(name = "id") int id) throws Exception {
-        Candidate candidate = candidateService.getCandidate(id);
-        CandidateDto candidateDto = candidateMapper.getCandidateDtoFrom(candidate);
+    public ResponseEntity<?> getCandidate(@PathVariable(name = "id") Integer id) throws Exception {
+        CandidateDto candidateDto = new CandidateDto();
+        try {
+            // validating request
+            candidateDto.setId(id);
+            Validation validation = ValidationFactory.getValidation(candidateDto);
+            validation.validate(candidateDto, RequestMethod.GET);
 
-        return new ResponseEntity<>(candidateDto, HttpStatus.OK);
+            Candidate candidate = candidateService.getCandidate(id);
+            if (candidate == null) {
+                return new ResponseEntity<>(candidateDto, HttpStatus.NOT_FOUND);
+            }
+
+
+
+            // mapping
+            candidateDto = candidateMapper.getCandidateDtoFrom(candidate);
+        } catch (ValidationException ve) {
+            return new ResponseEntity<>(candidateDto, HttpStatus.BAD_REQUEST);
+        } finally {
+            return new ResponseEntity<>(candidateDto, HttpStatus.OK);
+        }
     }
 }
