@@ -206,9 +206,16 @@ public class Candidate extends Person {
     }
 
     public Candidate(CandidateBuilder candidateBuilder) {
-        super(candidateBuilder.id, candidateBuilder.firstname, candidateBuilder.middlename, candidateBuilder.lastname,
-              candidateBuilder.email, candidateBuilder.phone, candidateBuilder.street1, candidateBuilder.street2,
-              candidateBuilder.city, candidateBuilder.state, candidateBuilder.zip, candidateBuilder.country);
+        setId(candidateBuilder.id);
+        setFirstname(candidateBuilder.firstname);
+        setMiddlename(candidateBuilder.middlename);
+        setLastname(candidateBuilder.lastname);
+        setEmail(candidateBuilder.email);
+        setPhone(candidateBuilder.phone);
+        setCity(candidateBuilder.city);
+        setState(candidateBuilder.state);
+        setZip(candidateBuilder.zip);
+        setCountry(candidateBuilder.country);
         this.workAuthorization = candidateBuilder.workAuthorization;
         this.linkedin = candidateBuilder.linkedin;
         this.stage = candidateBuilder.stage;

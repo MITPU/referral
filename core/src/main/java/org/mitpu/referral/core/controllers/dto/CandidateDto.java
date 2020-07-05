@@ -1,57 +1,33 @@
 package org.mitpu.referral.core.controllers.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Size;
-
 public class CandidateDto extends Dto {
 
-    @Max(Integer.MAX_VALUE)
     private Integer id;
 
-    @Size(min = 1, max = 80)
     private String firstname;
 
-    @Size(min = 1, max = 45)
     private String middlename;
 
-    @Size(min = 1, max = 80)
     private String lastname;
 
-    @Email
     private String email;
 
-    @Size(min = 1, max = 15)
     private String phone;
 
-    @Size(min = 1, max = 50)
-    private String street1;
-
-    @Size(min = 1, max = 50)
-    private String street2;
-
-    @Size(min = 1, max = 50)
     private String city;
 
-    @Size(min = 1, max = 50)
     private String state;
 
-    @Size(min = 1, max = 15)
     private String zip;
 
-    @Size(min = 1, max = 50)
     private String country;
 
-    @Max(4)
     private Byte workAuthorization;
 
-    @Size(min = 1, max = 200)
     private String linkedin;
 
-    @Max(4)
     private Byte stage;
 
-    @Max(5)
     private Byte status;
 
     private Integer coordinatorId;
@@ -105,22 +81,6 @@ public class CandidateDto extends Dto {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getStreet1() {
-        return street1;
-    }
-
-    public void setStreet1(String street1) {
-        this.street1 = street1;
-    }
-
-    public String getStreet2() {
-        return street2;
-    }
-
-    public void setStreet2(String street2) {
-        this.street2 = street2;
     }
 
     public String getCity() {

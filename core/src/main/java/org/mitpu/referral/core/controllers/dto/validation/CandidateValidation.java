@@ -2,73 +2,31 @@ package org.mitpu.referral.core.controllers.dto.validation;
 
 import org.mitpu.referral.core.controllers.dto.CandidateDto;
 import org.mitpu.referral.core.controllers.dto.Dto;
+import org.mitpu.referral.core.services.exception.ReferralException;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class CandidateValidation implements Validation {
+public class CandidateValidation extends Validation {
 
     @Override
-    public void validate(Dto dto, RequestMethod requestMethod) throws ValidationException {
+    public void validateRequest(Dto dto, RequestMethod requestMethod) throws ReferralException {
         CandidateDto candidateDto = (CandidateDto) dto;
         if (requestMethod == RequestMethod.GET) {
-            if (candidateDto.getId() == null || candidateDto.getId() < 1) {
-                throw new ValidationException("'id' is missing.");
-            }
+            validateRequestProperty(RuleSet.DtoProperty.ID, candidateDto.getFirstname(), false);
         } else if (requestMethod == RequestMethod.POST) {
-            if (candidateDto.getFirstname() == null || candidateDto.getFirstname().isEmpty()) {
-                throw new ValidationException("'firstname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getEmail() == null || candidateDto.getEmail().isEmpty()) {
-                throw new ValidationException("'email' is missing.");
-            }
-            if (candidateDto.getPhone() == null || candidateDto.getPhone().isEmpty()) {
-                throw new ValidationException("'phone' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-            if (candidateDto.getLastname() == null || candidateDto.getLastname().isEmpty()) {
-                throw new ValidationException("'lastname' is missing.");
-            }
-
+            validateRequestProperty(RuleSet.DtoProperty.ID, candidateDto.getFirstname(), true);
+            validateRequestProperty(RuleSet.DtoProperty.FIRSTNAME, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.MIDDLENAME, candidateDto.getFirstname(), true);
+            validateRequestProperty(RuleSet.DtoProperty.LASTNAME, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.EMAIL, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.PHONE, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.CITY, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.ZIP, candidateDto.getFirstname(), true);
+            validateRequestProperty(RuleSet.DtoProperty.COUNTRY, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.WORKAUTHORIZATION, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.LINKEDIN, candidateDto.getFirstname(), true);
+            validateRequestProperty(RuleSet.DtoProperty.STAGE, candidateDto.getFirstname(), false);
+            validateRequestProperty(RuleSet.DtoProperty.STATUS, candidateDto.getFirstname(), false);
         }
     }
 
-    private void validateNull(Object property) throws ValidationException {
-        if (property == null) {
-            throw new ValidationException("'firstname' is missing.");
-        }
-    }
 }

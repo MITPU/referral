@@ -27,8 +27,6 @@ public class CandidateMapper {
         candidate.setMiddlename(candidateDto.getMiddlename());
         candidate.setPhone(candidateDto.getPhone());
         candidate.setState(candidateDto.getState());
-        candidate.setStreet1(candidateDto.getStreet1());
-        candidate.setStreet2(candidateDto.getStreet2());
         candidate.setZip(candidateDto.getZip());
         return candidate;
     }
@@ -52,8 +50,6 @@ public class CandidateMapper {
         candidateDto.setMiddlename(candidate.getMiddlename());
         candidateDto.setPhone(candidate.getPhone());
         candidateDto.setState(candidate.getState());
-        candidateDto.setStreet1(candidate.getStreet1());
-        candidateDto.setStreet2(candidate.getStreet2());
         candidateDto.setZip(candidate.getZip());
         return candidateDto;
     }
