@@ -1,8 +1,8 @@
 package org.mitpu.referral.core.controllers.dto;
 
-public class CandidateDto {
+public class CandidateDto extends Dto {
 
-    private int id;
+    private Integer id;
 
     private String firstname;
 
@@ -14,10 +14,6 @@ public class CandidateDto {
 
     private String phone;
 
-    private String street1;
-
-    private String street2;
-
     private String city;
 
     private String state;
@@ -26,21 +22,24 @@ public class CandidateDto {
 
     private String country;
 
-    private byte workAuthorization;
+    private Byte workAuthorization;
 
     private String linkedin;
 
-    private byte stage;
+    private Byte stage;
 
-    private byte status;
+    private Byte status;
 
-    private int coordinatorId;
+    private Integer coordinatorId;
 
-    public int getId() {
+    public CandidateDto() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -84,22 +83,6 @@ public class CandidateDto {
         this.phone = phone;
     }
 
-    public String getStreet1() {
-        return street1;
-    }
-
-    public void setStreet1(String street1) {
-        this.street1 = street1;
-    }
-
-    public String getStreet2() {
-        return street2;
-    }
-
-    public void setStreet2(String street2) {
-        this.street2 = street2;
-    }
-
     public String getCity() {
         return city;
     }
@@ -132,11 +115,11 @@ public class CandidateDto {
         this.country = country;
     }
 
-    public byte getWorkAuthorization() {
+    public Byte getWorkAuthorization() {
         return workAuthorization;
     }
 
-    public void setWorkAuthorization(byte workAuthorization) {
+    public void setWorkAuthorization(Byte workAuthorization) {
         this.workAuthorization = workAuthorization;
     }
 
@@ -148,27 +131,27 @@ public class CandidateDto {
         this.linkedin = linkedin;
     }
 
-    public byte getStage() {
+    public Byte getStage() {
         return stage;
     }
 
-    public void setStage(byte stage) {
+    public void setStage(Byte stage) {
         this.stage = stage;
     }
 
-    public byte getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
-    public int getCoordinatorId() {
+    public Integer getCoordinatorId() {
         return coordinatorId;
     }
 
-    public void setCoordinatorId(int coordinatorId) {
+    public void setCoordinatorId(Integer coordinatorId) {
         this.coordinatorId = coordinatorId;
     }
 }

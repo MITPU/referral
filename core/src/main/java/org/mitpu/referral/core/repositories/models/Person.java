@@ -2,7 +2,7 @@ package org.mitpu.referral.core.repositories.models;
 
 public class Person {
 
-    private int id;
+    private Integer id;
 
     private String firstname;
 
@@ -13,10 +13,6 @@ public class Person {
     private String email;
 
     private String phone;
-
-    private String street1;
-
-    private String street2;
 
     private String city;
 
@@ -29,27 +25,11 @@ public class Person {
     public Person() {
     }
 
-    public Person(int id, String firstname, String middlename, String lastname, String email, String phone,
-                  String street1, String street2, String city, String state, String zip, String country) {
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.email = email;
-        this.phone = phone;
-        this.street1 = street1;
-        this.street2 = street2;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.country = country;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,22 +71,6 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getStreet1() {
-        return street1;
-    }
-
-    public void setStreet1(String street1) {
-        this.street1 = street1;
-    }
-
-    public String getStreet2() {
-        return street2;
-    }
-
-    public void setStreet2(String street2) {
-        this.street2 = street2;
     }
 
     public String getCity() {
