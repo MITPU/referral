@@ -48,6 +48,10 @@ public class CandidateService {
     }
 
     public Integer createCandidate(Candidate candidate) {
+        // override properties with default values
+        candidate.setStage(Candidate.Stage.INITIAL);
+        candidate.setStatus(Candidate.Status.NEW);
+
         Integer newKey = candidateRepository.save(candidate);
         if (newKey == null) {
             throw new ConflictException(OBJECT_NAME);

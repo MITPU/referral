@@ -1,11 +1,18 @@
 package org.mitpu.referral.core.repositories;
 
+import org.mitpu.referral.core.services.exception.ConflictException;
+import org.springframework.dao.DataAccessException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DBUtils {
+
+    private static final String DUPLICATE_KEY_REGEX = "^(.+)Duplicate entry\\s(.+)\\sfor key\\s'(.+)';(.+)$";
 
     public static PreparedStatement createPsWithKey(Connection conn, String query, Object[] parameters)
             throws SQLException {
@@ -34,6 +41,18 @@ public class DBUtils {
                     ps.setObject(parameterIndex, o);
                 }
                 parameterIndex++;
+            }
+        }
+    }
+
+    public static void throwConflictException(DataAccessException dae) throws ConflictException {
+        Matcher matcher = Pattern.compile(DUPLICATE_KEY_REGEX).matcher(dae.getMessage());
+        if (matcher.matches()) {
+            String uniqueColumn = DBConstants.UNIQUE_CONSTRAINTS.get(matcher.group(3));
+            if (uniqueColumn != null) {
+                throw new ConflictException(uniqueColumn);
+            } else {
+                throw new ConflictException();
             }
         }
     }

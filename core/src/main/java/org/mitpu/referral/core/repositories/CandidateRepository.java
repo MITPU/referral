@@ -3,6 +3,7 @@ package org.mitpu.referral.core.repositories;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -48,20 +49,18 @@ public class CandidateRepository {
             Object[] parameters = new Object[] {id};
             String query = "SELECT * FROM candidate WHERE id = ?";
             candidate = jdbcTemplate.queryForObject(query, parameters, mapper);
-        } catch (DataAccessException dae) {
-            dae.printStackTrace();
+        } catch (EmptyResultDataAccessException er) {
         }
         return candidate;
     }
 
     public List<Candidate> findAll() {
         List<Candidate> candidateList = null;
-        try {
-            Object[] parameters = null;
-            String query = "SELECT * FROM candidate";
-            candidateList = jdbcTemplate.query(query, parameters, mapper);
-        } catch (DataAccessException dae) {
-            dae.printStackTrace();
+        Object[] parameters = null;
+        String query = "SELECT * FROM candidate";
+        candidateList = jdbcTemplate.query(query, parameters, mapper);
+        if (candidateList != null && candidateList.isEmpty()) {
+            candidateList = null;
         }
         return candidateList;
     }
@@ -80,10 +79,10 @@ public class CandidateRepository {
                                                 candidate.getState(),
                                                 candidate.getZip(),
                                                 candidate.getCountry(),
-                                                candidate.getWorkAuthorization(),
+                                                candidate.getWorkAuthorization().code,
                                                 candidate.getLinkedin(),
-                                                candidate.getState(),
-                                                candidate.getStatus(),
+                                                candidate.getStage().code,
+                                                candidate.getStatus().code,
                                                 candidate.getCoordinatorId()};
             String query = "INSERT INTO candidate ("
                     + "firstname, "
@@ -100,27 +99,23 @@ public class CandidateRepository {
                     + "stage, "
                     + "status, "
                     + "coordinator_id) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if (jdbcTemplate.update(conn -> DBUtils.createPsWithKey(conn, query, parameters), personPrimaryKey) > 0) {
                 candidateId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
-            dae.printStackTrace();
+            DBUtils.throwConflictException(dae);
         }
         return candidateId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        try {
-            Object[] parameters = new Object[] {id};
-            String query = "DELETE FROM candidate WHERE id = ?";
-            if (jdbcTemplate.update(query, parameters) > 0) {
-                isDeleted = true;
-            }
-        } catch (DataAccessException dae) {
-            dae.printStackTrace();
+        Object[] parameters = new Object[] {id};
+        String query = "DELETE FROM candidate WHERE id = ?";
+        if (jdbcTemplate.update(query, parameters) > 0) {
+            isDeleted = true;
         }
         return isDeleted;
     }
