@@ -15,12 +15,12 @@ The project is Maven project, so you can use any IDE for development.
  - Clone repository on your local and create your own branch. (https://github.com/MITPU/referral).
  
  
-####2. Open project
+#### 2. Open project
  - Open your IDE.
  - File -> New -> Project from existing sources.
  - Select Maven -> Finish.
  
-####3. Start Application
+#### 3. Start Application
  - Set development configuration.
  (./src/main/resources/application-dev.properties)
  - Open main java class which is 'CoreApplication.java'
@@ -30,7 +30,7 @@ The project is Maven project, so you can use any IDE for development.
    3. Click on the green play button, left side of the class.
  - For default, application will listen 8080 port on your localhost.
  
-####4. Test application
+#### 4. Test application
 - Open postman application.
 - Download 'referral' collection (https://www.getpostman.com/collections/e09ced9592db6946d293)
 - Send request to your local application.
