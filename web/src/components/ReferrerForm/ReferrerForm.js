@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Referrer.css';
 import RFS from './ReferrerFormStates/RFS';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import axios from '../../axios-orders';
+// import Spinner from '../../components/UI/Spinner/Spinner';
+// import axios from '../../axios-orders';
 
 // Transfer the state object into an array
 
