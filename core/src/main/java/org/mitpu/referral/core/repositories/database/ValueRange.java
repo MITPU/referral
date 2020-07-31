@@ -1,4 +1,4 @@
-package org.mitpu.referral.core.repositories;
+package org.mitpu.referral.core.repositories.database;
 
 public class ValueRange {
 

@@ -1,5 +1,6 @@
 package org.mitpu.referral.core.repositories;
 
+import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

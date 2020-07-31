@@ -12,33 +12,6 @@ public class Candidate extends Person {
 
     private Integer coordinatorId;
 
-    public enum WorkAuthorization {
-        CPT(0), OPT(1), H1B(2), GC(3), CITIZEN(4);
-
-        public static WorkAuthorization getWorkAuthorization(byte code) {
-            switch (code) {
-            case 0:
-                return CPT;
-            case 1:
-                return OPT;
-            case 2:
-                return H1B;
-            case 3:
-                return GC;
-            case 4:
-                return CITIZEN;
-            default:
-                return null;
-            }
-        }
-
-        public final byte code;
-
-        private WorkAuthorization(int code) {
-            this.code = (byte) code;
-        }
-    }
-
     public enum Stage {
         INITIAL(0), READY_TO_REFER(1), MISMATCH_POSITION(2), RESUME_REVISION(3), TO_REFERRER(4);
 

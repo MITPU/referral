@@ -1,4 +1,4 @@
-package org.mitpu.referral.core.repositories;
+package org.mitpu.referral.core.repositories.database;
 
 import org.mitpu.referral.core.services.exception.ConflictException;
 import org.springframework.dao.DataAccessException;

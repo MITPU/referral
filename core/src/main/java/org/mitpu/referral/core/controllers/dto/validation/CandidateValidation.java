@@ -2,7 +2,7 @@ package org.mitpu.referral.core.controllers.dto.validation;
 
 import org.mitpu.referral.core.controllers.dto.CandidateDto;
 import org.mitpu.referral.core.controllers.dto.Dto;
-import org.mitpu.referral.core.repositories.DBConstants;
+import org.mitpu.referral.core.repositories.database.DBConstants;
 import org.mitpu.referral.core.services.exception.ReferralException;
 import org.springframework.web.bind.annotation.RequestMethod;
 
