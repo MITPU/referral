@@ -12,40 +12,142 @@ class PFS extends Component {
                 label: 'Email Address',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Email Address'
+                    placeholder: 'Email'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 45,
+
+                },
+                valid: false,
+                touched: false
             },
-            name: {
+            firstName: {
                 elementType: 'input',
-                label: 'What is your full name? (First name, Last Name)',
+                label: 'First Name',
                 elementConfig: {
                     type: 'text',
-                    placeholder:'What is your full name? (First name, Last Name)'
+                    placeholder:'First Name'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            lastName: {
+                elementType: 'input',
+                label: 'Last Name',
+                elementConfig: {
+                    type: 'text',
+                    placeholder:'Last Name'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
             },
             location: {
                 elementType: 'input',
                 label: 'Where are you located?',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Where are you located?'
+                    placeholder: 'Location'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
             },
-            company: {
+            phone: {
                 elementType: 'input',
-                label: 'What company are currently work for and be able to refer to?',
+                label: 'What is your phone number',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'What company are currently work for and be able to refer to?'
+                    type: 'digits',
+                    placeholder: 'Numbers'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
             },
+            resume: {
+                elementType: 'input',
+                label: 'Please upload your most recent resume here.',
+                elementConfig: {
+                    type: 'file',
+                    name: 'filename'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            // company: {
+            //     elementType: 'checkbox',
+            //     label: 'Do you know what company you want to get referred? Currently, our referrers work for Salesforce, Workday, Microsoft, Stripe, Cisco, Google, IBM, Enjoy Technology, Bright Power, OmniSci, and Facebook.',
+            //     elementConfig: {
+            //         type: 'checkbox',
+            //         checked: true
+            //     },
+            //     value: '',
+            //     validation: {
+            //         required: true
+            //     },
+            //     valid: false,
+            //     touched: false
+            // },
         },
+        formIsValid: false,
         loading: false,
  };
+
+    checkValidity(value, rules) {
+        let isValid = true;
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        return isValid
+    }
+
+    // Not finished yet
+    // myInputChangedMethod = (myId, event) => {
+    //     let myDisplayResult = null;
+    //     const myFormClone = {...this.state.participantForm};
+    //     const myFormElementClone = {...myFormClone[myId]};
+    //     if (myId === 'myCheckbox') {
+    //         let myCheckedStatus = myFormElementClone.elementConfig.checked;
+    //         myFormElementClone.elementConfig.checked = !myCheckedStatus;
+    //         myFormClone[myId] = myFormElementClone;
+    //         myDisplayResult = !myCheckedStatus ? 'True' : 'False';
+    //         this.setState({participantForm: myFormClone, myDisplayResult: myDisplayResult});
+    //         return;
+    //     }
+    //     myFormElementClone.value = event.target.value;
+    //     myFormClone[myId] = myFormElementClone;
+    //     myDisplayResult = event.target.value;
+    //     this.setState({participantForm: myFormClone, myDisplayResult});
+    // };
 
     submitHandler = (event) => {
         event.preventDefault();
@@ -78,6 +180,8 @@ class PFS extends Component {
              ...updatedParticipantForm[inputIdentifier]
          };
          updatedFormElement.value = event.target.value;
+         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+         updatedFormElement.touched = true;
          updatedParticipantForm[inputIdentifier] = updatedFormElement;
          this.setState({participantForm: updatedParticipantForm});
     }
@@ -98,15 +202,19 @@ class PFS extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        label={formElement.config.label}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}
+                        touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
+                {/* <button className={classes.FormButton} disabled={!this.state.formIsValid}>Submit</button> */}
                 <button className={classes.FormButton}>Submit</button>
             </form>
         );
         if ( this.state.loading ) {
             form = <Spinner />;
         }
-
         return (
             <div>
                 <h1>Participant Form</h1>

@@ -7,21 +7,42 @@ import classes from '../../ParticipantForm/ParticipantFormStates/PFS.css';
 class RFS extends Component {
     state = {
         referrerForm: {
+            test: null,
             email: {
                 elementType: 'input',
                 label: 'Your E-Mail',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Your E-Mail'
+                    placeholder: 'E-Mail'
                 },
                 value: ''
             },
-            name: {
+            firstName: {
                 elementType: 'input',
-                label: 'Your Name',
+                label: 'First Name',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your Name'
+                    placeholder: 'First name'
+                },
+                value: ''
+            },
+            lastName: {
+                elementType: 'input',
+                label: 'Last Name',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Last name'
+                },
+                value: ''
+            },
+            phoneNumber: {
+                elementType: 'input',
+                label: 'Phone Number',
+                elementConfig: {
+                    type: 'tel',
+                    placeholder: 'Number',
+                    pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}",
+                    maxlength: "12",
                 },
                 value: ''
             },
@@ -34,6 +55,16 @@ class RFS extends Component {
                 },
                 value: ''
             },
+            referTo: {
+                elementType: 'input',
+                label: 'What company are currently work for and be able to refer to?',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Company Name'
+                },
+                value: ''
+            },
+            
             howYouHelp: {
                 elementType: 'select',
                 label: 'How can you help Referral Participants beside referring? Please check the boxes that applies to you.',
@@ -46,7 +77,34 @@ class RFS extends Component {
                     ]
                 },
                 value: ''
-            }
+            },
+            bestCommunication: {
+                elementType: 'input',
+                label: 'What is the best way to communicate with you? We understand and respect your value of time. Some of our referrers prefer emails, phone call, or appointments. Please specify.',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Communication'
+                },
+                value: ''
+            },
+            feedbackSection: {
+                elementType: 'input',
+                label: 'You are almost at the end! We want to remind you that you are an awesome human of MITPU. From your previous experience, do you have any feedback on our program? We would love to improve attempt to help our members.',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Feedback'
+                },
+                value: ''
+            },
+            visaSection: {
+                elementType: 'input',
+                label: 'Do you know if your employer requires certain work authorization? Please answer in details if possible. Many of our participants are on F1 Student Visa and H1B.',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Visa'
+                },
+                value: ''
+            },
         },
         loading: false,
  };
@@ -86,6 +144,13 @@ class RFS extends Component {
          this.setState({referrerForm: updatedReferrerForm});
     }
 
+    // componentDidMount () {
+    //     axios.get('https://referral-3ffeb.firebaseio.com/test.json');
+    //           .then(response => {
+    //             this.setState({test: response.data});
+    //           });
+    // }
+
     render() {
         const formElementsArray = [];
         for (let key in this.state.referrerForm) {
@@ -102,9 +167,11 @@ class RFS extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        label={formElement.config.label}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 <button className={classes.FormButton}>Submit</button>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             </form>
         );
         if ( this.state.loading ) {
@@ -113,8 +180,7 @@ class RFS extends Component {
         return (
             <div>
                 <h1>Referrer Form</h1>
-                <p>Welcome to the Referral Program from MITPU! Your support to MITPU Community helps hundreds of Mongolian job seekers. 
-        The first step is to fill this form to join our referrer community.</p>
+                <p>Welcome to the Referral Program from MITPU! Your support to MITPU Community helps hundreds of Mongolian job seekers. The first step is to fill this form to join our referrer community.</p>
             {form}
             </div>    
         );
