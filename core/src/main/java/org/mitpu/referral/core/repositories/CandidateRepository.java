@@ -2,6 +2,7 @@ package org.mitpu.referral.core.repositories;
 
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Candidate;
+import org.mitpu.referral.core.repositories.models.WorkAuthorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,7 +22,7 @@ public class CandidateRepository {
     private RowMapper<Candidate> mapper = (rs, rowNum) -> {
         Candidate.CandidateBuilder candidateBuilder = new Candidate.CandidateBuilder();
         candidateBuilder.setWorkAuthorization(
-                Candidate.WorkAuthorization.getWorkAuthorization(rs.getByte("workauthorization")));
+                WorkAuthorization.getWorkAuthorization(rs.getByte("workauthorization")));
         candidateBuilder.setLinkedin(rs.getString("linkedin"));
         candidateBuilder.setStage(Candidate.Stage.getStage(rs.getByte("stage")));
         candidateBuilder.setStatus(Candidate.Status.getStatus(rs.getByte("status")));
@@ -80,10 +81,10 @@ public class CandidateRepository {
                                                 candidate.getState(),
                                                 candidate.getZip(),
                                                 candidate.getCountry(),
-                                                candidate.getWorkAuthorization().code,
+                                                candidate.getWorkAuthorization().value,
                                                 candidate.getLinkedin(),
-                                                candidate.getStage().code,
-                                                candidate.getStatus().code,
+                                                candidate.getStage().value,
+                                                candidate.getStatus().value,
                                                 candidate.getCoordinatorId()};
             String query = "INSERT INTO candidate ("
                     + "firstname, "

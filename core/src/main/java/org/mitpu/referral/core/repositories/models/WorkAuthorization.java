@@ -3,8 +3,8 @@ package org.mitpu.referral.core.repositories.models;
 public enum WorkAuthorization {
     CPT(0), OPT(1), H1B(2), GC(3), CITIZEN(4);
 
-    public static WorkAuthorization getWorkAuthorization(byte code) {
-        switch (code) {
+    public static WorkAuthorization getWorkAuthorization(byte value) {
+        switch (value) {
         case 0:
             return CPT;
         case 1:
@@ -20,9 +20,9 @@ public enum WorkAuthorization {
         }
     }
 
-    public final byte code;
+    public final byte value;
 
-    private WorkAuthorization(int code) {
-        this.code = (byte) code;
+    private WorkAuthorization(int value) {
+        this.value = (byte) value;
     }
 }

@@ -1,8 +1,6 @@
-package org.mitpu.referral.core.repositories.models;
+package org.mitpu.referral.core.controllers.dto;
 
-import java.time.LocalDateTime;
-
-public class Job {
+public class JobDto {
 
     private Integer id;
 
@@ -12,11 +10,11 @@ public class Job {
 
     private String position;
 
-    private Type type;
+    private Byte type;
 
-    private LocalDateTime date;
+    private String date;
 
-    private Stack stack;
+    private Byte stack;
 
     private String positionLink;
 
@@ -28,61 +26,7 @@ public class Job {
 
     private Integer referrerId;
 
-    public enum Type {
-
-        INTERNSHIP(0), EXPERIENCED(1);
-
-        public static Type getType(byte code) {
-            switch (code) {
-            case 0:
-                return INTERNSHIP;
-            case 1:
-                return EXPERIENCED;
-            default:
-                return null;
-            }
-        }
-
-        public final byte value;
-
-        private Type(int value) {
-            this.value = (byte) value;
-        }
-    }
-
-    public enum Stack {
-
-        FRONT_END(0), BACK_END(1), FULL_STACK(2), DEV_OPS(3), AUTOMATION(4), TEST(5), DATABASE(6);
-
-        public static Stack getStack(byte code) {
-            switch (code) {
-            case 0:
-                return FRONT_END;
-            case 1:
-                return BACK_END;
-            case 2:
-                return FULL_STACK;
-            case 3:
-                return DEV_OPS;
-            case 4:
-                return AUTOMATION;
-            case 5:
-                return TEST;
-            case 6:
-                return DATABASE;
-            default:
-                return null;
-            }
-        }
-
-        public final byte value;
-
-        private Stack(int value) {
-            this.value = (byte) value;
-        }
-    }
-
-    public Job() {
+    public JobDto() {
     }
 
     public Integer getId() {
@@ -117,27 +61,27 @@ public class Job {
         this.position = position;
     }
 
-    public Type getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Stack getStack() {
+    public Byte getStack() {
         return stack;
     }
 
-    public void setStack(Stack stack) {
+    public void setStack(Byte stack) {
         this.stack = stack;
     }
 

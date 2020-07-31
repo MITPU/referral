@@ -2,6 +2,7 @@ package org.mitpu.referral.core.controllers.mapper;
 
 import org.mitpu.referral.core.controllers.dto.CandidateDto;
 import org.mitpu.referral.core.repositories.models.Candidate;
+import org.mitpu.referral.core.repositories.models.WorkAuthorization;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,8 +18,7 @@ public class CandidateMapper {
         candidate.setCoordinatorId(candidateDto.getCoordinatorId());
         candidate.setStage(Candidate.Stage.getStage(candidateDto.getStage()));
         candidate.setStatus(Candidate.Status.getStatus(candidateDto.getStatus()));
-        candidate.setWorkAuthorization(
-                Candidate.WorkAuthorization.getWorkAuthorization(candidateDto.getWorkAuthorization()));
+        candidate.setWorkAuthorization(WorkAuthorization.getWorkAuthorization(candidateDto.getWorkAuthorization()));
         candidate.setCity(candidateDto.getCity());
         candidate.setCountry(candidateDto.getCountry());
         candidate.setEmail(candidateDto.getEmail());
@@ -39,9 +39,9 @@ public class CandidateMapper {
         candidateDto.setId(candidate.getId());
         candidateDto.setLinkedin(candidate.getLinkedin());
         candidateDto.setCoordinatorId(candidate.getCoordinatorId());
-        candidateDto.setStage(candidate.getStage().code);
-        candidateDto.setStatus(candidate.getStatus().code);
-        candidateDto.setWorkAuthorization(candidate.getWorkAuthorization().code);
+        candidateDto.setStage(candidate.getStage().value);
+        candidateDto.setStatus(candidate.getStatus().value);
+        candidateDto.setWorkAuthorization(candidate.getWorkAuthorization().value);
         candidateDto.setCity(candidate.getCity());
         candidateDto.setCountry(candidate.getCountry());
         candidateDto.setEmail(candidate.getEmail());

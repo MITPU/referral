@@ -15,8 +15,8 @@ public class Candidate extends Person {
     public enum Stage {
         INITIAL(0), READY_TO_REFER(1), MISMATCH_POSITION(2), RESUME_REVISION(3), TO_REFERRER(4);
 
-        public static Stage getStage(byte code) {
-            switch (code) {
+        public static Stage getStage(byte value) {
+            switch (value) {
             case 0:
                 return INITIAL;
             case 1:
@@ -30,18 +30,18 @@ public class Candidate extends Person {
             }
         }
 
-        public final byte code;
+        public final byte value;
 
-        private Stage(int code) {
-            this.code = (byte) code;
+        private Stage(int value) {
+            this.value = (byte) value;
         }
     }
 
     public enum Status {
         NEW(0), IN_PROGRESS(1), DEACTIVE(2), GOT_JOB(3), DONE(4), BLOCKED(5);
 
-        public static Status getStatus(byte code) {
-            switch (code) {
+        public static Status getStatus(byte value) {
+            switch (value) {
             case 0:
                 return NEW;
             case 1:
@@ -59,10 +59,10 @@ public class Candidate extends Person {
             }
         }
 
-        public final byte code;
+        public final byte value;
 
-        private Status(int code) {
-            this.code = (byte) code;
+        private Status(int value) {
+            this.value = (byte) value;
         }
     }
 

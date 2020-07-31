@@ -19,8 +19,8 @@ public class CandidateParticipation {
     public enum Status {
         REQUESTED(0), DONE(1);
 
-        public static Status getStatus(byte code) {
-            switch (code) {
+        public static Status getStatus(byte value) {
+            switch (value) {
             case 0:
                 return REQUESTED;
             case 1:
@@ -30,10 +30,10 @@ public class CandidateParticipation {
             }
         }
 
-        public final byte status;
+        public final byte value;
 
-        private Status(int status) {
-            this.status = (byte) status;
+        private Status(int value) {
+            this.value = (byte) value;
         }
     }
 

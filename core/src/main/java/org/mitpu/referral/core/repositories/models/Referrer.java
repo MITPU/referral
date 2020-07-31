@@ -20,10 +20,23 @@ public class Referrer extends Person {
 
         EMAIL(0), PHONE(1), APPOINTMENT(2);
 
-        public final byte methodType;
+        public static CommMethodType getCommMethodType(byte value) {
+            switch (value) {
+            case 0:
+                return EMAIL;
+            case 1:
+                return PHONE;
+            case 2:
+                return APPOINTMENT;
+            default:
+                return null;
+            }
+        }
 
-        private CommMethodType(int methodType) {
-            this.methodType = (byte) methodType;
+        public final byte value;
+
+        private CommMethodType(int value) {
+            this.value = (byte) value;
         }
     }
 
@@ -31,10 +44,21 @@ public class Referrer extends Person {
 
         INTERNAL(0), EXTERNAL(1);
 
-        public final byte methodType;
+        public static ReferMethodType getReferMethodType(byte value) {
+            switch (value) {
+            case 0:
+                return INTERNAL;
+            case 1:
+                return EXTERNAL;
+            default:
+                return null;
+            }
+        }
 
-        private ReferMethodType(int methodType) {
-            this.methodType = (byte) methodType;
+        public final byte value;
+
+        private ReferMethodType(int value) {
+            this.value = (byte) value;
         }
     }
 

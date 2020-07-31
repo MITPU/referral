@@ -8,10 +8,21 @@ public class Coordinator extends Person {
 
         REGULAR(0), ADMIN(1);
 
-        public final byte role;
+        public static Role getRole(byte value) {
+            switch (value) {
+            case 0:
+                return REGULAR;
+            case 1:
+                return ADMIN;
+            default:
+                return null;
+            }
+        }
 
-        private Role(int role) {
-            this.role = (byte) role;
+        public final byte value;
+
+        private Role(int value) {
+            this.value = (byte) value;
         }
     }
 
