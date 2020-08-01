@@ -4,7 +4,7 @@ public class Skill {
 
     private Integer id;
 
-    private String name;
+    private String skill;
 
     public Skill() {
     }
@@ -17,11 +17,11 @@ public class Skill {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSkill() {
+        return skill;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 }

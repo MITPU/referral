@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class CandidateSkillService {
 
-    private final static String OBJECT_NAME = "candidate";
+    private final static String OBJECT_NAME = "candidate's skill";
 
     private CandidateSkillRepository candidateSkillRepository;
 

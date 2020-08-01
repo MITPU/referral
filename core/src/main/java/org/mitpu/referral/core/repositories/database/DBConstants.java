@@ -46,7 +46,6 @@ public class DBConstants {
         UNIQUE_CONSTRAINTS.put("skill_UNIQUE", "skill");
         UNIQUE_CONSTRAINTS.put("name_UNIQUE", "participation");
         UNIQUE_CONSTRAINTS.put("careerlink_UNIQUE", "career link");
-        UNIQUE_CONSTRAINTS.put("skill_UNIQUE", "skill");
     }
 
     public enum Column {

@@ -28,7 +28,7 @@ public class JobMapper {
         return job;
     }
 
-    public JobDto getJobFrom(Job job) {
+    public JobDto getJobDtoFrom(Job job) {
         if (job == null) {
             return null;
         }

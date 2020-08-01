@@ -88,15 +88,4 @@ public class CandidateController {
         return new ResponseEntity<>(candidateDto, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/candidateform", method = RequestMethod.POST)
-    public ResponseEntity<?> submitCandidateForm(@RequestBody CandidateDto candidateDto) {
-
-        // validating request
-        Validation validation = ValidationFactory.getValidation(candidateDto);
-        validation.validateRequest(candidateDto, RequestMethod.POST);
-
-        Integer newKey = candidateService.createCandidate(candidateMapper.getCandidateFrom(candidateDto));
-        candidateDto.setId(newKey);
-        return new ResponseEntity<>(candidateDto, HttpStatus.OK);
-    }
 }

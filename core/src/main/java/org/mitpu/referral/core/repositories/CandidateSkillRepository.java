@@ -20,7 +20,7 @@ public class CandidateSkillRepository {
         CandidateSkill candidateSkill = new CandidateSkill();
         candidateSkill.setId(rs.getInt("id"));
         candidateSkill.setCandidateId(rs.getInt("candidate_id"));
-        candidateSkill.setSkillId(rs.getInt(rs.getInt("skill_id")));
+        candidateSkill.setSkillId(rs.getInt("skill_id"));
         candidateSkill.setYear(rs.getByte("year"));
         return candidateSkill;
     };

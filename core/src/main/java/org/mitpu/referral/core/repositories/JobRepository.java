@@ -68,15 +68,27 @@ public class JobRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {job.getCandidateId()};
+            Object[] parameters = new Object[] {
+                    job.getCompanyId(),
+                    job.getCandidateId(),
+                    job.getPosition(),
+                    job.getType().value,
+                    job.getStack().value,
+                    job.getPositionLink(),
+                    job.getState(),
+                    job.getCity(),
+                    job.getCountry(),
+                    job.getReferrerId()
+            };
             String query =
                     "INSERT INTO job (COMPANY_ID, CANDIDATE_ID, POSITION, TYPE, DATE, STACK, POSITIONLINK, STATE, CITY, COUNTRY, REFERRER_ID) "
-                            + "VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
+                            + "VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
 
             if (jdbcTemplate.update(conn -> DBUtils.createPsWithKey(conn, query, parameters), personPrimaryKey) > 0) {
                 JobId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
+            dae.printStackTrace();
             DBUtils.throwConflictException(dae);
         }
         return JobId;

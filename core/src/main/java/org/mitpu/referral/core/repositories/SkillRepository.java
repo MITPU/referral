@@ -19,7 +19,7 @@ public class SkillRepository {
     private RowMapper<Skill> mapper = (rs, rowNum) -> {
         Skill skill = new Skill();
         skill.setId(rs.getInt("id"));
-        skill.setName(rs.getString("name"));
+        skill.setSkill(rs.getString("skill"));
         return skill;
     };
 
@@ -57,8 +57,8 @@ public class SkillRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {skill.getName()};
-            String query = "INSERT INTO skill (NAME) VALUES (?)";
+            Object[] parameters = new Object[] {skill.getSkill()};
+            String query = "INSERT INTO skill (SKILL) VALUES (?)";
 
             if (jdbcTemplate.update(conn -> DBUtils.createPsWithKey(conn, query, parameters), personPrimaryKey) > 0) {
                 skillId = personPrimaryKey.getKey().intValue();

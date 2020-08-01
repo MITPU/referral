@@ -24,7 +24,7 @@ public class CompanyMapper {
         return company;
     }
 
-    public CompanyDto getCompanyDto(Company company) {
+    public CompanyDto getCompanyDtoFrom(Company company) {
         if (company == null) {
             return null;
         }
