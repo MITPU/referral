@@ -1,6 +1,6 @@
 package org.mitpu.referral.core.controllers.dto;
 
-public class JobDto {
+public class JobDto extends Dto{
 
     private Integer id;
 

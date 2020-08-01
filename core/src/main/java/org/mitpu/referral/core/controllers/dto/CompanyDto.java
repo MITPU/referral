@@ -1,6 +1,6 @@
 package org.mitpu.referral.core.controllers.dto;
 
-public class CompanyDto {
+public class CompanyDto extends Dto {
 
     private Integer id;
 

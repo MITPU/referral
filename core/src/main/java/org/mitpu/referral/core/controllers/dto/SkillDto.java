@@ -1,6 +1,6 @@
 package org.mitpu.referral.core.controllers.dto;
 
-public class SkillDto {
+public class SkillDto extends Dto{
 
     private Integer id;
 
