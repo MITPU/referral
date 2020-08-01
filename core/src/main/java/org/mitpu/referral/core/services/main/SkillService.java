@@ -37,7 +37,7 @@ public class SkillService {
         return skillList;
     }
 
-    public void deleteskill(Integer id) {
+    public void deleteSkill(Integer id) {
         Skill skill = skillRepository.findById(id);
         if (skill == null) {
             throw new NotFoundException(OBJECT_NAME);

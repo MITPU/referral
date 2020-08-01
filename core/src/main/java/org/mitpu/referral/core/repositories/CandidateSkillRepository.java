@@ -54,6 +54,17 @@ public class CandidateSkillRepository {
         return candidateSkillList;
     }
 
+    public List<CandidateSkill> findAllByCandidateId(Integer candidateId) {
+        List<CandidateSkill> candidateSkillList = null;
+        Object[] parameters = new Object[] {candidateId};
+        String query = "SELECT * FROM candidate_skill WHERE candidate_id = ?";
+        candidateSkillList = jdbcTemplate.query(query, parameters, mapper);
+        if (candidateSkillList != null && candidateSkillList.isEmpty()) {
+            candidateSkillList = null;
+        }
+        return candidateSkillList;
+    }
+
     public Integer save(CandidateSkill candidateSkill) {
         Integer skillId = null;
         try {
