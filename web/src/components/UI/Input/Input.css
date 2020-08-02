@@ -25,3 +25,13 @@
     outline: none;
     background-color: #ccc;
 }
+
+.Invalid {
+    border: 1px solid red;
+    background-color:rgb(255, 255, 255);
+}
+
+.Label {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
