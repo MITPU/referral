@@ -1,6 +1,7 @@
 package org.mitpu.referral.core.controllers.dto.validation;
 
 import org.mitpu.referral.core.controllers.dto.CandidateDto;
+import org.mitpu.referral.core.controllers.dto.CandidateFormDto;
 import org.mitpu.referral.core.controllers.dto.CandidateParticipationDto;
 import org.mitpu.referral.core.controllers.dto.CandidateSkillDto;
 import org.mitpu.referral.core.controllers.dto.CompanyDto;
@@ -30,6 +31,8 @@ public class ValidationFactory {
             return new ParticipationValidation();
         } else if (dto instanceof CandidateParticipationDto) {
             return new CandidateParticipationValidation();
+        } else if (dto instanceof CandidateFormDto) {
+            return new CandidateFormValidation();
         } else {
             throw new ReferralException("Validation is not found.");
         }

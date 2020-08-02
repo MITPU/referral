@@ -56,6 +56,10 @@ public class CandidateParticipationService {
     }
 
     public Integer createCandidateParticipation(CandidateParticipation candidateParticipation) {
+        // set default values
+        candidateParticipation.setReferrerId(null);
+        candidateParticipation.setStatus(CandidateParticipation.Status.REQUESTED);
+
         Integer newKey = candidateParticipationRepository.save(candidateParticipation);
         if (newKey == null) {
             throw new ConflictException(OBJECT_NAME);

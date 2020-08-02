@@ -32,6 +32,10 @@ public class CandidateDto extends Dto {
 
     private Integer coordinatorId;
 
+    private String date;
+
+    private String about;
+
     public CandidateDto() {
     }
 
@@ -153,5 +157,21 @@ public class CandidateDto extends Dto {
 
     public void setCoordinatorId(Integer coordinatorId) {
         this.coordinatorId = coordinatorId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

@@ -51,4 +51,13 @@ public abstract class Validation {
             throw new InvalidException("email");
         }
     }
+
+    private void validateDateProperty(String date) {
+        // 2020-08-01 12:00:00
+        Pattern datePattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}");
+        Matcher matcher = datePattern.matcher(date);
+        if (!matcher.matches()) {
+            throw new InvalidException("date");
+        }
+    }
 }

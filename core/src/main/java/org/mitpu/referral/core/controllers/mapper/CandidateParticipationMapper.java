@@ -16,8 +16,10 @@ public class CandidateParticipationMapper {
         candidateParticipation.setParticipationId(candidateParticipationDto.getParticipationId());
         candidateParticipation.setCandidateId(candidateParticipationDto.getCandidateId());
         candidateParticipation.setReferrerId(candidateParticipationDto.getReferrerId());
-        candidateParticipation
-                .setStatus(CandidateParticipation.Status.getStatus(candidateParticipationDto.getStatus()));
+        if (candidateParticipationDto.getStatus() != null) {
+            candidateParticipation
+                    .setStatus(CandidateParticipation.Status.getStatus(candidateParticipationDto.getStatus()));
+        }
         return candidateParticipation;
     }
 

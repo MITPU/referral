@@ -3,6 +3,7 @@ package org.mitpu.referral.core.repositories;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.mitpu.referral.core.repositories.models.WorkAuthorization;
+import org.mitpu.referral.core.services.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,6 +38,8 @@ public class CandidateRepository {
         candidateBuilder.setState(rs.getString("state"));
         candidateBuilder.setZip(rs.getString("zip"));
         candidateBuilder.setCountry(rs.getString("country"));
+        candidateBuilder.setAbout(rs.getString("about"));
+        candidateBuilder.setDate(DateTimeUtils.stringToDateTime(rs.getString("date")));
         return candidateBuilder.build();
     };
 
@@ -85,7 +88,8 @@ public class CandidateRepository {
                                                 candidate.getLinkedin(),
                                                 candidate.getStage().value,
                                                 candidate.getStatus().value,
-                                                candidate.getCoordinatorId()};
+                                                candidate.getCoordinatorId(),
+                                                candidate.getAbout()};
             String query = "INSERT INTO candidate ("
                     + "firstname, "
                     + "middlename, "
@@ -100,8 +104,10 @@ public class CandidateRepository {
                     + "linkedin, "
                     + "stage, "
                     + "status, "
-                    + "coordinator_id) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "coordinator_id, "
+                    + "about, "
+                    + "date) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
             if (jdbcTemplate.update(conn -> DBUtils.createPsWithKey(conn, query, parameters), personPrimaryKey) > 0) {
                 candidateId = personPrimaryKey.getKey().intValue();
