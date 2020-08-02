@@ -87,4 +87,5 @@ public class CandidateController {
         candidateDto.setId(newKey);
         return new ResponseEntity<>(candidateDto, HttpStatus.OK);
     }
+
 }

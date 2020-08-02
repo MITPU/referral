@@ -1,4 +1,4 @@
-package org.mitpu.referral.core.repositories;
+package org.mitpu.referral.core.repositories.database;
 
 import org.mitpu.referral.core.services.exception.ConflictException;
 import org.springframework.dao.DataAccessException;
@@ -46,6 +46,7 @@ public class DBUtils {
     }
 
     public static void throwConflictException(DataAccessException dae) throws ConflictException {
+        // TODO fix throwing conflict exception for all DB exceptions.
         Matcher matcher = Pattern.compile(DUPLICATE_KEY_REGEX).matcher(dae.getMessage());
         if (matcher.matches()) {
             String uniqueColumn = DBConstants.UNIQUE_CONSTRAINTS.get(matcher.group(3));

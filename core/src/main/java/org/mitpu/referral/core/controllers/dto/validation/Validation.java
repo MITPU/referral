@@ -1,8 +1,8 @@
 package org.mitpu.referral.core.controllers.dto.validation;
 
 import org.mitpu.referral.core.controllers.dto.Dto;
-import org.mitpu.referral.core.repositories.DBConstants;
-import org.mitpu.referral.core.repositories.ValueRange;
+import org.mitpu.referral.core.repositories.database.DBConstants;
+import org.mitpu.referral.core.repositories.database.ValueRange;
 import org.mitpu.referral.core.services.exception.InvalidException;
 import org.mitpu.referral.core.services.exception.MissingException;
 import org.mitpu.referral.core.services.exception.ReferralException;
