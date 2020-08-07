@@ -7,7 +7,7 @@ import classes from '../../ParticipantForm/ParticipantFormStates/PFS.css';
 class RFS extends Component {
     state = {
         referrerForm: {
-            // test: null
+            // test: null,
             email: {
                 elementType: 'input',
                 label: 'Your E-Mail',
