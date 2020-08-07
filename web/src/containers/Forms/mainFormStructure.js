@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import { connect } from 'react-redux';
 import Aux from '../../hoc/Auxiliary';
 import Participant from '../../components/ParticipantForm/ParticipantForm';
 import Referrer from '../../components/ReferrerForm/ReferrerForm';
@@ -25,7 +23,7 @@ class FormBuilder extends Component {
             <div>
                 <Aux>
                     <Switch>
-                        <Route path="/referrer" component={Referrer}/>
+                        <Route path="/referrer" component={Referrer} />
                         <Route path="/admin" component={Admin} />
                         <Route path="/" render={() => (<Participant companyName={this.props.companyNames} />)} />
                         <Route path="/login" />
