@@ -19,8 +19,8 @@ export const fetchCOMPANIES = () => {
         return (
             axios(config)
                 .then(function (response) { console.log(JSON.stringify(response.data)); })
-                .then(json => dispatch(receiveCOMPANIES(json)))
+                .then(json => dispatch(receiveCOMPANIES(json)), console.log())
                 .catch(function (error) { console.log(error) })
         )
     }
-}
+} 
