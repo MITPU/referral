@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
@@ -149,7 +148,7 @@ class PFS extends Component {
     //     myDisplayResult = event.target.value;
     //     this.setState({participantForm: myFormClone, myDisplayResult});
     // };
-    
+
     submitHandler = (event) => {
         event.preventDefault();
         this.setState( { loading: true } );
