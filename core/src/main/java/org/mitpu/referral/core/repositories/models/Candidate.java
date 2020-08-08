@@ -1,8 +1,14 @@
 package org.mitpu.referral.core.repositories.models;
 
+import java.time.LocalDateTime;
+
 public class Candidate extends Person {
 
     private WorkAuthorization workAuthorization;
+
+    private LocalDateTime date;
+
+    private String about;
 
     private String linkedin;
 
@@ -80,9 +86,9 @@ public class Candidate extends Person {
 
         private String phone;
 
-        private String street1;
+        private LocalDateTime date;
 
-        private String street2;
+        private String about;
 
         private String city;
 
@@ -126,14 +132,6 @@ public class Candidate extends Person {
             this.phone = phone;
         }
 
-        public void setStreet1(String street1) {
-            this.street1 = street1;
-        }
-
-        public void setStreet2(String street2) {
-            this.street2 = street2;
-        }
-
         public void setCity(String city) {
             this.city = city;
         }
@@ -170,6 +168,14 @@ public class Candidate extends Person {
             this.coordinatorId = coordinatorId;
         }
 
+        public void setDate(LocalDateTime date) {
+            this.date = date;
+        }
+
+        public void setAbout(String about) {
+            this.about = about;
+        }
+
         public Candidate build() {
             return new Candidate(this);
         }
@@ -194,6 +200,8 @@ public class Candidate extends Person {
         this.stage = candidateBuilder.stage;
         this.status = candidateBuilder.status;
         this.coordinatorId = candidateBuilder.coordinatorId;
+        this.about = candidateBuilder.about;
+        this.date = candidateBuilder.date;
     }
 
     public WorkAuthorization getWorkAuthorization() {
@@ -234,5 +242,21 @@ public class Candidate extends Person {
 
     public void setCoordinatorId(Integer coordinatorId) {
         this.coordinatorId = coordinatorId;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

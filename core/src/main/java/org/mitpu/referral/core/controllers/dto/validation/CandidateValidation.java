@@ -27,7 +27,10 @@ public class CandidateValidation extends Validation {
             validateRequestProperty(DBConstants.Column.LINKEDIN, candidateDto.getLinkedin(), true);
             validateRequestProperty(DBConstants.Column.STAGE, candidateDto.getStage(), false);
             validateRequestProperty(DBConstants.Column.STATUS, candidateDto.getStatus(), false);
+            validateRequestProperty(DBConstants.Column.ABOUT, candidateDto.getAbout(), false);
             validateRequestProperty(DBConstants.Column.COORDINATOR_ID, candidateDto.getCoordinatorId(), true);
+        } else if (requestMethod == RequestMethod.PUT || requestMethod == RequestMethod.PATCH) {
+            validateRequestProperty(DBConstants.Column.DATE, candidateDto.getAbout(), true);
         }
     }
 

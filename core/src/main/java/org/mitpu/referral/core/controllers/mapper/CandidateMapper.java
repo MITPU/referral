@@ -3,6 +3,7 @@ package org.mitpu.referral.core.controllers.mapper;
 import org.mitpu.referral.core.controllers.dto.CandidateDto;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.mitpu.referral.core.repositories.models.WorkAuthorization;
+import org.mitpu.referral.core.services.DateTimeUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,8 +17,12 @@ public class CandidateMapper {
         candidate.setId(candidateDto.getId());
         candidate.setLinkedin(candidateDto.getLinkedin());
         candidate.setCoordinatorId(candidateDto.getCoordinatorId());
-        candidate.setStage(Candidate.Stage.getStage(candidateDto.getStage()));
-        candidate.setStatus(Candidate.Status.getStatus(candidateDto.getStatus()));
+        if (candidateDto.getStage() != null) {
+            candidate.setStage(Candidate.Stage.getStage(candidateDto.getStage()));
+        }
+        if (candidateDto.getStatus() != null) {
+            candidate.setStatus(Candidate.Status.getStatus(candidateDto.getStatus()));
+        }
         candidate.setWorkAuthorization(WorkAuthorization.getWorkAuthorization(candidateDto.getWorkAuthorization()));
         candidate.setCity(candidateDto.getCity());
         candidate.setCountry(candidateDto.getCountry());
@@ -28,6 +33,8 @@ public class CandidateMapper {
         candidate.setPhone(candidateDto.getPhone());
         candidate.setState(candidateDto.getState());
         candidate.setZip(candidateDto.getZip());
+        candidate.setAbout(candidateDto.getAbout());
+        candidate.setDate(DateTimeUtils.stringToDateTime(candidateDto.getDate()));
         return candidate;
     }
 
@@ -51,6 +58,8 @@ public class CandidateMapper {
         candidateDto.setPhone(candidate.getPhone());
         candidateDto.setState(candidate.getState());
         candidateDto.setZip(candidate.getZip());
+        candidateDto.setAbout(candidate.getAbout());
+        candidateDto.setDate(DateTimeUtils.dateTimeToString(candidate.getDate()));
         return candidateDto;
     }
 }
