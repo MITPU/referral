@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.repositories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class SkillRepository {
+
+    private static final Logger LOGGER = LogManager.getLogger(SkillRepository.class);
 
     private RowMapper<Skill> mapper = (rs, rowNum) -> {
         Skill skill = new Skill();
@@ -33,10 +37,11 @@ public class SkillRepository {
     public Skill findById(Integer id) {
         Skill skill = null;
         try {
-            Object[] parameters = new Object[] {id};
+            Object[] parameters = new Object[]{id};
             String query = "SELECT * FROM skill WHERE id = ?";
             skill = jdbcTemplate.queryForObject(query, parameters, mapper);
         } catch (EmptyResultDataAccessException er) {
+            LOGGER.debug("Query returned empty result set.");
         }
         return skill;
     }
@@ -57,21 +62,21 @@ public class SkillRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {skill.getSkill()};
+            Object[] parameters = new Object[]{skill.getSkill()};
             String query = "INSERT INTO skill (SKILL) VALUES (?)";
 
             if (jdbcTemplate.update(conn -> DBUtils.createPsWithKey(conn, query, parameters), personPrimaryKey) > 0) {
                 skillId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
-            DBUtils.throwConflictException(dae);
+            DBUtils.catchException(dae);
         }
         return skillId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        Object[] parameters = new Object[] {id};
+        Object[] parameters = new Object[]{id};
         String query = "DELETE FROM skill WHERE id = ?";
         if (jdbcTemplate.update(query, parameters) > 0) {
             isDeleted = true;

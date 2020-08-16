@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Properties>
+        <Property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%c{3}.%M:%L] %m%n</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="debug"
+                     fileName="./logs/info.log"
+                     filePattern="./logs/$${date:yyyy-MM}/info-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="info"
+                     fileName="./logs/info.log"
+                     filePattern="./logs/$${date:yyyy-MM}/info-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="warn"
+                     fileName="./logs/info.log"
+                     filePattern="./logs/$${date:yyyy-MM}/info-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <LevelRangeFilter minLevel="WARN" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="error"
+                     fileName="./logs/error.log"
+                     filePattern="./logs/$${date:yyyy-MM}/error-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="fatal"
+                     fileName="./logs/error.log"
+                     filePattern="./logs/$${date:yyyy-MM}/error-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <LevelRangeFilter minLevel="FATAL" maxLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="spring"
+                     fileName="./logs/spring.log"
+                     filePattern="./logs/$${date:yyyy-MM}/spring-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${LOG_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="spring"/>
+        </Root>
+        <Logger name="org.mitpu.referral.core" level="debug" additivity="false">
+            <AppenderRef ref="info"/>
+            <AppenderRef ref="debug"/>
+            <AppenderRef ref="warn"/>
+            <AppenderRef ref="fatal"/>
+            <AppenderRef ref="error"/>
+        </Logger>
+        <Logger name="org.spring" level="info" additivity="false">
+            <AppenderRef ref="spring"/>
+        </Logger>
+    </Loggers>
+
+</Configuration>

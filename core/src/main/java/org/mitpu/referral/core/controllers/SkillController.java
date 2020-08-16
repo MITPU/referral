@@ -1,25 +1,29 @@
 package org.mitpu.referral.core.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.controllers.dto.SkillDto;
 import org.mitpu.referral.core.controllers.dto.validation.Validation;
 import org.mitpu.referral.core.controllers.dto.validation.ValidationFactory;
 import org.mitpu.referral.core.controllers.mapper.SkillMapper;
 import org.mitpu.referral.core.repositories.models.Skill;
+import org.mitpu.referral.core.services.LogUtils;
+import org.mitpu.referral.core.services.exception.ApplicationException;
+import org.mitpu.referral.core.services.exception.ReferralException;
 import org.mitpu.referral.core.services.main.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class SkillController {
+
+    private static final Logger LOGGER = LogManager.getLogger(SkillController.class);
 
     private SkillMapper skillMapper;
 
@@ -34,58 +38,106 @@ public class SkillController {
     }
 
     @RequestMapping(path = "/skill/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getSkill(@PathVariable(name = "id") Integer id) {
+    public ResponseEntity<?> getSkill(HttpServletRequest httpServletRequest, @PathVariable(name = "id") Integer id) {
         SkillDto skillDto = new SkillDto();
+        try {
 
-        // validating request
-        skillDto.setId(id);
-        Validation validation = ValidationFactory.getValidation(skillDto);
-        validation.validateRequest(skillDto, RequestMethod.GET);
+            LogUtils.logWebRequest(skillDto, httpServletRequest, null);
 
-        Skill skill = skillService.getSkill(id);
+            // validating request
+            skillDto.setId(id);
+            Validation validation = ValidationFactory.getValidation(skillDto);
+            validation.validateRequest(skillDto, RequestMethod.GET);
 
-        // mapping
-        skillDto = skillMapper.getSkillDtoFrom(skill);
-        return new ResponseEntity<>(skillDto, HttpStatus.OK);
+            Skill skill = skillService.getSkill(id);
+
+            // mapping
+            skillDto = skillMapper.getSkillDtoFrom(skill);
+
+            ResponseEntity<SkillDto> responseEntity = new ResponseEntity<>(skillDto, HttpStatus.OK);
+            LogUtils.logWebResponse(skillDto, responseEntity.getStatusCode());
+            return responseEntity;
+        } catch (ReferralException re) {
+            //TODO log here
+            throw re;
+        } catch (Exception e) {
+            LOGGER.error(ApplicationException.MESSAGE, e);
+            throw new ApplicationException();
+        }
     }
 
     @RequestMapping(path = "/skills", method = RequestMethod.GET)
     public ResponseEntity<?> getSkills() {
-        List<SkillDto> skillDtoList = new ArrayList<>();
+        try {
+            LOGGER.info("Getting skill list request received.");
 
-        List<Skill> skillList = skillService.getSkills();
+            List<SkillDto> skillDtoList = new ArrayList<>();
 
-        // mapping
-        for (Skill skill : skillList) {
-            skillDtoList.add(skillMapper.getSkillDtoFrom(skill));
+            List<Skill> skillList = skillService.getSkills();
+
+            // mapping
+            for (Skill skill : skillList) {
+                skillDtoList.add(skillMapper.getSkillDtoFrom(skill));
+            }
+
+            ResponseEntity<List> responseEntity = new ResponseEntity<>(skillDtoList, HttpStatus.OK);
+            LogUtils.logWebResponse(skillDtoList.get(0), responseEntity.getStatusCode());
+            return responseEntity;
+        } catch (ReferralException re) {
+            throw re;
+        } catch (Exception e) {
+            LOGGER.error(ApplicationException.MESSAGE, e);
+            throw new ApplicationException();
         }
-        return new ResponseEntity<>(skillDtoList, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/skill/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSkill(@PathVariable(name = "id") Integer id) {
-        SkillDto skillDto = new SkillDto();
+        try {
+            LOGGER.info("Deleting skill by ID request received. ID={}", id);
 
-        // validating request
-        skillDto.setId(id);
-        Validation validation = ValidationFactory.getValidation(skillDto);
-        validation.validateRequest(skillDto, RequestMethod.DELETE);
+            SkillDto skillDto = new SkillDto();
 
-        skillService.deleteSkill(id);
+            // validating request
+            skillDto.setId(id);
+            Validation validation = ValidationFactory.getValidation(skillDto);
+            validation.validateRequest(skillDto, RequestMethod.DELETE);
 
-        return new ResponseEntity<>(SUCCESS_RESPONSE_MESSAGE, HttpStatus.OK);
+            skillService.deleteSkill(id);
+
+            ResponseEntity<SkillDto> responseEntity = new ResponseEntity<>(skillDto, HttpStatus.OK);
+            LogUtils.logWebResponse(skillDto, responseEntity.getStatusCode());
+            return responseEntity;
+        } catch (ReferralException re) {
+            throw re;
+        } catch (Exception e) {
+            LOGGER.error(ApplicationException.MESSAGE, e);
+            throw new ApplicationException();
+        }
     }
 
     @RequestMapping(path = "/skill", method = RequestMethod.POST)
     public ResponseEntity<?> createSkill(@RequestBody SkillDto skillDto) {
+        try {
+            LOGGER.info("Creating skill request received. Request={}", skillDto.toString());
 
-        // validating request
-        Validation validation = ValidationFactory.getValidation(skillDto);
-        validation.validateRequest(skillDto, RequestMethod.POST);
+            // validating request
+            Validation validation = ValidationFactory.getValidation(skillDto);
+            validation.validateRequest(skillDto, RequestMethod.POST);
 
-        Integer newKey = skillService.createSkill(skillMapper.getSkillFrom(skillDto));
-        skillDto.setId(newKey);
-        return new ResponseEntity<>(skillDto, HttpStatus.OK);
+            Integer newKey = skillService.createSkill(skillMapper.getSkillFrom(skillDto));
+            skillDto.setId(newKey);
+
+            ResponseEntity<SkillDto> responseEntity = new ResponseEntity<>(skillDto, HttpStatus.OK);
+            LogUtils.logWebResponse(skillDto, responseEntity.getStatusCode());
+            return responseEntity;
+        } catch (ReferralException re) {
+            throw re;
+        } catch (Exception e) {
+            LOGGER.error(ApplicationException.MESSAGE, e);
+            throw new ApplicationException();
+        }
+
     }
 
 }

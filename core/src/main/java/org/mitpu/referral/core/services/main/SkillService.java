@@ -1,8 +1,9 @@
 package org.mitpu.referral.core.services.main;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.SkillRepository;
 import org.mitpu.referral.core.repositories.models.Skill;
-import org.mitpu.referral.core.services.exception.ConflictException;
 import org.mitpu.referral.core.services.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import java.util.List;
 public class SkillService {
 
     private final static String OBJECT_NAME = "skill";
+
+    private static final Logger LOGGER = LogManager.getLogger(SkillService.class);
 
     private SkillRepository skillRepository;
 
@@ -43,15 +46,13 @@ public class SkillService {
             throw new NotFoundException(OBJECT_NAME);
         }
         if (skillRepository.delete(id)) {
-            // TODO log
+            LOGGER.debug("{} is deleted successfully.", OBJECT_NAME);
         }
     }
 
     public Integer createSkill(Skill skill) {
         Integer newKey = skillRepository.save(skill);
-        if (newKey == null) {
-            throw new ConflictException(OBJECT_NAME);
-        }
+
         return newKey;
     }
 }

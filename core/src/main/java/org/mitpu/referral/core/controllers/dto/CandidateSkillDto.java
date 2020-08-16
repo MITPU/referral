@@ -11,6 +11,7 @@ public class CandidateSkillDto extends Dto {
     private Byte year;
 
     public CandidateSkillDto() {
+        super("Candidate's skill");
     }
 
     public Integer getId() {

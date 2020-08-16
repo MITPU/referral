@@ -1,12 +1,17 @@
 package org.mitpu.referral.core.repositories.database;
 
+import org.mitpu.referral.core.services.exception.ConflictException;
+import org.mitpu.referral.core.services.exception.ParentNotFoundException;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DBConstants {
 
     public static final HashMap<Column, ValueRange> VALUE_CONSTRAINTS = new HashMap<>();
 
-    public static final HashMap<String, String> UNIQUE_CONSTRAINTS = new HashMap<>();
+    public static final List<DBConstraint> CONSTANTS_LIST = new ArrayList<>();
 
     static {
         // setting value constraints
@@ -41,13 +46,27 @@ public class DBConstants {
         VALUE_CONSTRAINTS.put(Column.ABOUT, new ValueRange(1, 500));
         VALUE_CONSTRAINTS.put(Column.DATE, new ValueRange(1, 19));
 
-        // setting value constraints
-        UNIQUE_CONSTRAINTS.put("linkedin_UNIQUE", "linkedin");
-        UNIQUE_CONSTRAINTS.put("phone_UNIQUE", "phone");
-        UNIQUE_CONSTRAINTS.put("email_UNIQUE", "email");
-        UNIQUE_CONSTRAINTS.put("skill_UNIQUE", "skill");
-        UNIQUE_CONSTRAINTS.put("name_UNIQUE", "participation");
-        UNIQUE_CONSTRAINTS.put("careerlink_UNIQUE", "career link");
+        // setting unique constraints
+        HashMap<String, String> uniqueConstraintModel = new HashMap<>();
+        uniqueConstraintModel.put("linkedin_UNIQUE", "linkedin");
+        uniqueConstraintModel.put("phone_UNIQUE", "phone");
+        uniqueConstraintModel.put("email_UNIQUE", "email");
+        uniqueConstraintModel.put("skill_UNIQUE", "skill");
+        uniqueConstraintModel.put("name_UNIQUE", "participation");
+        uniqueConstraintModel.put("careerlink_UNIQUE", "career link");
+
+        // setting foreign constraints
+        HashMap<String, String> foreignConstraintModel = new HashMap<>();
+        foreignConstraintModel.put("(`candidate_id`) REFERENCES `candidate` (`id`)", "candidate");
+        foreignConstraintModel.put("(`participation_id`) REFERENCES `candidate` (`id`)", "participation");
+        foreignConstraintModel.put("(`skill_id`) REFERENCES `skill` (`id`)", "skill");
+        foreignConstraintModel.put("(`referrer_id`) REFERENCES `referrer` (`id`)", "referrer");
+        foreignConstraintModel.put("(`company_id`) REFERENCES `company` (`id`)", "company");
+        foreignConstraintModel.put("(`coordinator_id`) REFERENCES `coordinator` (`id`)", "coordinator");
+
+        //
+        CONSTANTS_LIST.add(new DBConstraint("^(.+)FOREIGN\\sKEY\\s(.+)\\sON\\sDELETE\\sCASCADE\\sON\\sUPDATE\\sCASCADE\\)$", 2, foreignConstraintModel, ParentNotFoundException.class));
+        CONSTANTS_LIST.add(new DBConstraint("^(.+)Duplicate entry\\s(.+)\\sfor key\\s'(.+)';(.+)$", 3, uniqueConstraintModel, ConflictException.class));
     }
 
     public enum Column {

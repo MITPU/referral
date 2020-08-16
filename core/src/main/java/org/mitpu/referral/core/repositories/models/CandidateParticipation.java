@@ -21,12 +21,12 @@ public class CandidateParticipation {
 
         public static Status getStatus(byte value) {
             switch (value) {
-            case 0:
-                return REQUESTED;
-            case 1:
-                return DONE;
-            default:
-                return null;
+                case 0:
+                    return REQUESTED;
+                case 1:
+                    return DONE;
+                default:
+                    return null;
             }
         }
 

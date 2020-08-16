@@ -7,6 +7,7 @@ public class ParticipationDto extends Dto {
     private String name;
 
     public ParticipationDto() {
+        super("Participation");
     }
 
     public Integer getId() {

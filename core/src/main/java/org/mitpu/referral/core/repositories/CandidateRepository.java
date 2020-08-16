@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.repositories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.mitpu.referral.core.repositories.models.WorkAuthorization;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Component
 public class CandidateRepository {
+
+    private static final Logger LOGGER = LogManager.getLogger(CandidateRepository.class);
 
     private JdbcTemplate jdbcTemplate;
 
@@ -51,10 +55,11 @@ public class CandidateRepository {
     public Candidate findById(Integer id) {
         Candidate candidate = null;
         try {
-            Object[] parameters = new Object[] {id};
+            Object[] parameters = new Object[]{id};
             String query = "SELECT * FROM candidate WHERE id = ?";
             candidate = jdbcTemplate.queryForObject(query, parameters, mapper);
         } catch (EmptyResultDataAccessException er) {
+            LOGGER.debug("Query returned empty result set.");
         }
         return candidate;
     }
@@ -75,21 +80,21 @@ public class CandidateRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {candidate.getFirstname(),
-                                                candidate.getMiddlename(),
-                                                candidate.getLastname(),
-                                                candidate.getEmail(),
-                                                candidate.getPhone(),
-                                                candidate.getCity(),
-                                                candidate.getState(),
-                                                candidate.getZip(),
-                                                candidate.getCountry(),
-                                                candidate.getWorkAuthorization().value,
-                                                candidate.getLinkedin(),
-                                                candidate.getStage().value,
-                                                candidate.getStatus().value,
-                                                candidate.getCoordinatorId(),
-                                                candidate.getAbout()};
+            Object[] parameters = new Object[]{candidate.getFirstname(),
+                    candidate.getMiddlename(),
+                    candidate.getLastname(),
+                    candidate.getEmail(),
+                    candidate.getPhone(),
+                    candidate.getCity(),
+                    candidate.getState(),
+                    candidate.getZip(),
+                    candidate.getCountry(),
+                    candidate.getWorkAuthorization().value,
+                    candidate.getLinkedin(),
+                    candidate.getStage().value,
+                    candidate.getStatus().value,
+                    candidate.getCoordinatorId(),
+                    candidate.getAbout()};
             String query = "INSERT INTO candidate ("
                     + "firstname, "
                     + "middlename, "
@@ -113,14 +118,14 @@ public class CandidateRepository {
                 candidateId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
-            DBUtils.throwConflictException(dae);
+            DBUtils.catchException(dae);
         }
         return candidateId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        Object[] parameters = new Object[] {id};
+        Object[] parameters = new Object[]{id};
         String query = "DELETE FROM candidate WHERE id = ?";
         if (jdbcTemplate.update(query, parameters) > 0) {
             isDeleted = true;

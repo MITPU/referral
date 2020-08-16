@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.repositories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.CandidateParticipation;
 import org.mitpu.referral.core.services.DateTimeUtils;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Component
 public class CandidateParticipationRepository {
+
+    private static final Logger LOGGER = LogManager.getLogger(CandidateParticipationRepository.class);
 
     private RowMapper<CandidateParticipation> mapper = (rs, rowNum) -> {
         CandidateParticipation candidateParticipation = new CandidateParticipation();
@@ -38,10 +42,11 @@ public class CandidateParticipationRepository {
     public CandidateParticipation findById(Integer id) {
         CandidateParticipation candidateParticipation = null;
         try {
-            Object[] parameters = new Object[] {id};
+            Object[] parameters = new Object[]{id};
             String query = "SELECT * FROM candidate_participation WHERE id = ?";
             candidateParticipation = jdbcTemplate.queryForObject(query, parameters, mapper);
         } catch (EmptyResultDataAccessException er) {
+            LOGGER.debug("Query returned empty result set.");
         }
         return candidateParticipation;
     }
@@ -59,7 +64,7 @@ public class CandidateParticipationRepository {
 
     public List<CandidateParticipation> findAllByCandidateId(Integer candidateId) {
         List<CandidateParticipation> candidateParticipationList = null;
-        Object[] parameters = new Object[] {candidateId};
+        Object[] parameters = new Object[]{candidateId};
         String query = "SELECT * FROM candidate_participation WHERE candidate_id = ?";
         candidateParticipationList = jdbcTemplate.query(query, parameters, mapper);
         if (candidateParticipationList != null && candidateParticipationList.isEmpty()) {
@@ -73,10 +78,10 @@ public class CandidateParticipationRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {candidateParticipation.getParticipationId(),
-                                                candidateParticipation.getCandidateId(),
-                                                candidateParticipation.getStatus().value,
-                                                candidateParticipation.getReferrerId()};
+            Object[] parameters = new Object[]{candidateParticipation.getParticipationId(),
+                    candidateParticipation.getCandidateId(),
+                    candidateParticipation.getStatus().value,
+                    candidateParticipation.getReferrerId()};
             String query = "INSERT INTO candidate_participation (PARTICIPATION_ID, CANDIDATE_ID, STATUS, DATE, REFERRER_ID) "
                     + "VALUES (?, ?, ?, NOW(), ?)";
 
@@ -84,15 +89,14 @@ public class CandidateParticipationRepository {
                 skillId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
-            dae.printStackTrace();
-            DBUtils.throwConflictException(dae);
+            DBUtils.catchException(dae);
         }
         return skillId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        Object[] parameters = new Object[] {id};
+        Object[] parameters = new Object[]{id};
         String query = "DELETE FROM candidate_participation WHERE id = ?";
         if (jdbcTemplate.update(query, parameters) > 0) {
             isDeleted = true;

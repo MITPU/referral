@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.repositories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Company;
 import org.mitpu.referral.core.repositories.models.WorkAuthorization;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Component
 public class CompanyRepository {
+
+    private static final Logger LOGGER = LogManager.getLogger(CompanyRepository.class);
 
     private RowMapper<Company> mapper = (rs, rowNum) -> {
         Company company = new Company();
@@ -40,10 +44,11 @@ public class CompanyRepository {
     public Company findById(Integer id) {
         Company company = null;
         try {
-            Object[] parameters = new Object[] {id};
+            Object[] parameters = new Object[]{id};
             String query = "SELECT * FROM company WHERE id = ?";
             company = jdbcTemplate.queryForObject(query, parameters, mapper);
         } catch (EmptyResultDataAccessException er) {
+            LOGGER.debug("Query returned empty result set.");
         }
         return company;
     }
@@ -64,9 +69,9 @@ public class CompanyRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {company.getName(), company.getCareerLink(), company.getIndustry(),
-                                                company.getWorkAuthorization().value, company.getCity(), company.getState(),
-                                                company.getCountry()};
+            Object[] parameters = new Object[]{company.getName(), company.getCareerLink(), company.getIndustry(),
+                    company.getWorkAuthorization().value, company.getCity(), company.getState(),
+                    company.getCountry()};
             String query = "INSERT INTO company (NAME, CAREERLINK, INDUSTRY, WORKAUTHORIZATION, CITY, STATE, COUNTRY) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -74,14 +79,14 @@ public class CompanyRepository {
                 companyId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
-            DBUtils.throwConflictException(dae);
+            DBUtils.catchException(dae);
         }
         return companyId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        Object[] parameters = new Object[] {id};
+        Object[] parameters = new Object[]{id};
         String query = "DELETE FROM company WHERE id = ?";
         if (jdbcTemplate.update(query, parameters) > 0) {
             isDeleted = true;

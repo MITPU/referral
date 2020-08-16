@@ -1,8 +1,9 @@
 package org.mitpu.referral.core.services.main;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.CandidateParticipationRepository;
 import org.mitpu.referral.core.repositories.models.CandidateParticipation;
-import org.mitpu.referral.core.services.exception.ConflictException;
 import org.mitpu.referral.core.services.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Service
 public class CandidateParticipationService {
+
+    private static final Logger LOGGER = LogManager.getLogger(SkillService.class);
 
     private final static String OBJECT_NAME = "candidate's participation";
 
@@ -51,7 +54,7 @@ public class CandidateParticipationService {
             throw new NotFoundException(OBJECT_NAME);
         }
         if (candidateParticipationRepository.delete(id)) {
-            // TODO log
+            LOGGER.debug("{} is deleted successfully.", OBJECT_NAME);
         }
     }
 
@@ -61,9 +64,7 @@ public class CandidateParticipationService {
         candidateParticipation.setStatus(CandidateParticipation.Status.REQUESTED);
 
         Integer newKey = candidateParticipationRepository.save(candidateParticipation);
-        if (newKey == null) {
-            throw new ConflictException(OBJECT_NAME);
-        }
+
         return newKey;
     }
 }

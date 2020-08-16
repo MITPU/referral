@@ -34,12 +34,12 @@ public class Job {
 
         public static Type getType(byte code) {
             switch (code) {
-            case 0:
-                return INTERNSHIP;
-            case 1:
-                return EXPERIENCED;
-            default:
-                return null;
+                case 0:
+                    return INTERNSHIP;
+                case 1:
+                    return EXPERIENCED;
+                default:
+                    return null;
             }
         }
 
@@ -56,22 +56,22 @@ public class Job {
 
         public static Stack getStack(byte code) {
             switch (code) {
-            case 0:
-                return FRONT_END;
-            case 1:
-                return BACK_END;
-            case 2:
-                return FULL_STACK;
-            case 3:
-                return DEV_OPS;
-            case 4:
-                return AUTOMATION;
-            case 5:
-                return TEST;
-            case 6:
-                return DATABASE;
-            default:
-                return null;
+                case 0:
+                    return FRONT_END;
+                case 1:
+                    return BACK_END;
+                case 2:
+                    return FULL_STACK;
+                case 3:
+                    return DEV_OPS;
+                case 4:
+                    return AUTOMATION;
+                case 5:
+                    return TEST;
+                case 6:
+                    return DATABASE;
+                default:
+                    return null;
             }
         }
 

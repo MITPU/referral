@@ -1,14 +1,6 @@
 package org.mitpu.referral.core.controllers.dto.validation;
 
-import org.mitpu.referral.core.controllers.dto.CandidateDto;
-import org.mitpu.referral.core.controllers.dto.CandidateFormDto;
-import org.mitpu.referral.core.controllers.dto.CandidateParticipationDto;
-import org.mitpu.referral.core.controllers.dto.CandidateSkillDto;
-import org.mitpu.referral.core.controllers.dto.CompanyDto;
-import org.mitpu.referral.core.controllers.dto.Dto;
-import org.mitpu.referral.core.controllers.dto.JobDto;
-import org.mitpu.referral.core.controllers.dto.ParticipationDto;
-import org.mitpu.referral.core.controllers.dto.SkillDto;
+import org.mitpu.referral.core.controllers.dto.*;
 import org.mitpu.referral.core.services.exception.ReferralException;
 
 public class ValidationFactory {
