@@ -5,11 +5,7 @@ import Referrer from '../../components/ReferrerForm/ReferrerForm';
 import Admin from '../../components/Admin/Admin';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
 import { fetchCOMPANIES } from '../../store/actions';
-=======
-import {fetchCOMPANIES} from '../../store/actions';
->>>>>>> e00fc49... Having problem setting mystate in Reducer.js
 
 class FormBuilder extends Component {
 
@@ -22,15 +18,8 @@ class FormBuilder extends Component {
         dispatch(fetchCOMPANIES())
     }
 
-<<<<<<< HEAD
     render() {
-
-        // console.log("Main", this.props, this.state)
         return (
-=======
-    render () {
-        return(
->>>>>>> e00fc49... Having problem setting mystate in Reducer.js
             <div>
                 <Aux>
                     <Switch>
