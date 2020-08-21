@@ -17,9 +17,15 @@ class FormBuilder extends Component {
         const { dispatch } = this.props
         dispatch(fetchCOMPANIES())
     }
+<<<<<<< HEAD
 
     render() {
         return (
+=======
+    
+    render () {
+        return(
+>>>>>>> 841ec65... update
             <div>
                 <Aux>
                     <Switch>

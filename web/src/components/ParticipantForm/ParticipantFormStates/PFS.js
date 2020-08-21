@@ -3,11 +3,19 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './PFS.css';
+<<<<<<< HEAD
+=======
+// import { Multiselect } from 'multiselect-react-dropdown';
+>>>>>>> 841ec65... update
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 class PFS extends Component {
     state = {
+<<<<<<< HEAD
         companyNameAPI: [],
+=======
+        companyNameAPI: [],      
+>>>>>>> 841ec65... update
         participantForm: {
             email: {
                 elementType: 'input',
@@ -147,9 +155,15 @@ class PFS extends Component {
         const participant = {
             myData: formData
         }
+<<<<<<< HEAD
         axios.post('/', participant)
             .then(response => {
                 this.setState({ loading: false });
+=======
+        axios.post( '/', participant )
+            .then( response => {
+                this.setState( { loading: false } );
+>>>>>>> 841ec65... update
                 console.log(response);
             })
             .catch(error => {
@@ -176,8 +190,17 @@ class PFS extends Component {
     getDropdownButtonLabel = (event) => {
         this.setState({ companyNameAPI: event },
             () => console.log('Option selected', this.state.companyNameAPI)
+<<<<<<< HEAD
         );
     };
+=======
+            );
+        // this.setState(
+        //     { selectedOption },
+        //     () => console.log(`Option selected:`, this.state.selectedOption)
+        //   );
+      };
+>>>>>>> 841ec65... update
 
     render() {
         const formElementsArray = [];
@@ -205,7 +228,11 @@ class PFS extends Component {
         if (this.props.companyNames) {
             options = Object.entries(this.props.companyNames).map(company => {
                 return (
+<<<<<<< HEAD
                     { label: company[1].name, value: company[1].name }
+=======
+                    { label: company[1].name, value : company[1].name}
+>>>>>>> 841ec65... update
                 );
             });
         }
@@ -231,9 +258,14 @@ class PFS extends Component {
         }
         return (
             <div>
+                {/* <p>{this.props.companyNames[0].name}</p> */}
                 <h1>Participant Form</h1>
                 <p>Welcome to Referral Program! Our mission is to help you find the best position</p>
                 <p>Please choose 3 company names</p>
+<<<<<<< HEAD
+=======
+                {/* <ReactMultiSelectCheckboxes options={options} onChange={(event) => console.log(event)} /> */}
+>>>>>>> 841ec65... update
                 <ReactMultiSelectCheckboxes options={options} onChange={this.getDropdownButtonLabel} />
                 {form}
             </div>
@@ -241,3 +273,5 @@ class PFS extends Component {
     }
 }
 export default PFS
+
+// onClose={(event) => console.log(event)} options={options} /> 
