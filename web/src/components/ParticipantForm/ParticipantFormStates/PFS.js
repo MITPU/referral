@@ -231,6 +231,7 @@ class PFS extends Component {
         }
         return (
             <div>
+                {/* <p>{this.props.companyNames[0].name}</p> */}
                 <h1>Participant Form</h1>
                 <p>Welcome to Referral Program! Our mission is to help you find the best position</p>
                 <p>Please choose 3 company names</p>
@@ -241,3 +242,5 @@ class PFS extends Component {
     }
 }
 export default PFS
+
+// onClose={(event) => console.log(event)} options={options} /> 
