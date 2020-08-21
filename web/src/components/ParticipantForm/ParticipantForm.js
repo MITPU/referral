@@ -4,11 +4,10 @@ import PFS from './ParticipantFormStates/PFS';
 import {Route} from 'react-router-dom';
 
 const ParticipantForm = (props) => {
-    console.log(props.companyName)
     return (
         <div className = {classes.Participant}>
             <Route
-            render={() => (<PFS />) }/>
+            render={() => (<PFS companyNames={props.companyName}/>) }/>
         </div>
     );
 };

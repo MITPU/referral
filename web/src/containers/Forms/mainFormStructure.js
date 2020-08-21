@@ -17,7 +17,7 @@ class FormBuilder extends Component {
         const { dispatch } = this.props
         dispatch(fetchCOMPANIES())
     }
-
+    
     render () {
         return(
             <div>

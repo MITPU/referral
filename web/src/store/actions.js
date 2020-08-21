@@ -1,14 +1,6 @@
 import axios from 'axios';
 export const RECEIVE_COMPANIES = 'RECEIVE_COMPANIES'
 
-function receiveCOMPANIES(json) {
-    return {
-        type: RECEIVE_COMPANIES,
-        COMPANIES: json.data.children.map(child => child.data),
-        receivedAt: Date.now()
-    }
-}
-
 export const fetchCOMPANIES = () => {
     const config = {
         method: 'get',
@@ -18,9 +10,12 @@ export const fetchCOMPANIES = () => {
     return dispatch => {
         return (
             axios(config)
-                .then(function (response) { console.log(JSON.stringify(response.data)); })
-                .then(json => dispatch(receiveCOMPANIES(json)), console.log())
-                .catch(function (error) { console.log(error) })
+                .then((response) => {
+                    dispatch({type: "RECEIVE_COMPANIES", names: response.data})
+                })
+                .catch((err) => {
+                    dispatch({type: "RECEIVE_ERROR", names: err})
+                })
         )
     }
 } 

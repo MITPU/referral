@@ -25,8 +25,6 @@ if (process.env.NODE_ENV !== 'production') {
     composeEnhancers(applyMiddleware(...middleware))
   )
 
-  console.log("MiddleWare is running",applyMiddleware(...middleware));
-
 const app = (
     <Provider store={store}>
         <BrowserRouter>

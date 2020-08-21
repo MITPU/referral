@@ -3,9 +3,12 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './PFS.css';
+// import { Multiselect } from 'multiselect-react-dropdown';
+import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 class PFS extends Component {
     state = {
+        companyNameAPI: [],      
         participantForm: {
             email: {
                 elementType: 'input',
@@ -19,7 +22,6 @@ class PFS extends Component {
                     required: true,
                     minLength: 3,
                     maxLength: 45,
-
                 },
                 valid: false,
                 touched: false
@@ -94,20 +96,6 @@ class PFS extends Component {
                 valid: false,
                 touched: false
             },
-            // company: {
-            //     elementType: 'checkbox',
-            //     label: 'Do you know what company you want to get referred? Currently, our referrers work for Salesforce, Workday, Microsoft, Stripe, Cisco, Google, IBM, Enjoy Technology, Bright Power, OmniSci, and Facebook.',
-            //     elementConfig: {
-            //         type: 'checkbox',
-            //         checked: true
-            //     },
-            //     value: '',
-            //     validation: {
-            //         required: true
-            //     },
-            //     valid: false,
-            //     touched: false
-            // },
         },
         formIsValid: false,
         loading: false,
@@ -160,7 +148,7 @@ class PFS extends Component {
         const participant = {
             myData: formData
         }
-        axios.post( '/participant.json', participant )
+        axios.post( '/', participant )
             .then( response => {
                 this.setState( { loading: false } );
                 console.log(response);
@@ -186,12 +174,44 @@ class PFS extends Component {
          this.setState({participantForm: updatedParticipantForm});
     }
 
+    getDropdownButtonLabel = (event) => {
+        this.setState({ companyNameAPI: event },
+            () => console.log('Option selected', this.state.companyNameAPI)
+            );
+        // this.setState(
+        //     { selectedOption },
+        //     () => console.log(`Option selected:`, this.state.selectedOption)
+        //   );
+      };
+
     render() {
         const formElementsArray = [];
+        const companyNameList = [];
+
         for (let key in this.state.participantForm) {
             formElementsArray.push({
                 id: key,
                 config: this.state.participantForm[key]
+            });
+        }
+
+        for (let key in this.props.companyNames) {
+            try {
+                companyNameList.push({
+                    id: key,
+                    config: this.props.companyNames[key]
+                });
+            } catch (e) {
+                break
+            }
+        }
+
+        let options = []
+        if (this.props.companyNames) {
+            options = Object.entries(this.props.companyNames).map(company => {
+                return (
+                    { label: company[1].name, value : company[1].name}
+                );
             });
         }
         let form = (
@@ -217,11 +237,17 @@ class PFS extends Component {
         }
         return (
             <div>
+                {/* <p>{this.props.companyNames[0].name}</p> */}
                 <h1>Participant Form</h1>
                 <p>Welcome to Referral Program! Our mission is to help you find the best position</p>
+                <p>Please choose 3 company names</p>
+                {/* <ReactMultiSelectCheckboxes options={options} onChange={(event) => console.log(event)} /> */}
+                <ReactMultiSelectCheckboxes options={options} onChange={this.getDropdownButtonLabel} />
                 {form}
             </div>
         );
     }
 }
 export default PFS
+
+// onClose={(event) => console.log(event)} options={options} /> 

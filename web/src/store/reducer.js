@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 import { RECEIVE_COMPANIES } from './actions';
 
 const initialState = {
@@ -7,11 +7,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case RECEIVE_COMPANIES:
-            return Object.assign({}, initialState, {
-                companyNames: RECEIVE_COMPANIES.COMPANIES,
-                lastUpdated: action.receivedAt
-            })
+        case RECEIVE_COMPANIES: {
+            return {...state, companyNames:action.names}
+            break;
+            }
         default:
             return state
     }
