@@ -4,22 +4,39 @@ import Participant from '../../components/ParticipantForm/ParticipantForm';
 import Referrer from '../../components/ReferrerForm/ReferrerForm';
 import Admin from '../../components/Admin/Admin';
 import { Route, Switch } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { fetchCOMPANIES } from '../../store/actions';
 
 class FormBuilder extends Component {
-    render () {
-        return(
+
+    state = {
+        companyNames: []
+    }
+
+    componentDidMount() {
+        const { dispatch } = this.props
+        dispatch(fetchCOMPANIES())
+    }
+
+    render() {
+        return (
             <div>
                 <Aux>
                     <Switch>
                         <Route path="/referrer" component={Referrer} />
                         <Route path="/admin" component={Admin} />
-                        <Route path="/" component={Participant} />
+                        <Route path="/" render={() => (<Participant companyName={this.props.companyNames} />)} />
+                        <Route path="/login" />
                     </Switch>
                 </Aux>
             </div>
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+        companyNames: state.companyNames
+    };
+};
 
-export default FormBuilder;
+export default connect(mapStateToProps)(FormBuilder);

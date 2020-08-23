@@ -3,9 +3,11 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './PFS.css';
+import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 class PFS extends Component {
     state = {
+        companyNameAPI: [],
         participantForm: {
             email: {
                 elementType: 'input',
@@ -19,7 +21,6 @@ class PFS extends Component {
                     required: true,
                     minLength: 3,
                     maxLength: 45,
-
                 },
                 valid: false,
                 touched: false
@@ -29,7 +30,7 @@ class PFS extends Component {
                 label: 'First Name',
                 elementConfig: {
                     type: 'text',
-                    placeholder:'First Name'
+                    placeholder: 'First Name'
                 },
                 value: '',
                 validation: {
@@ -43,7 +44,7 @@ class PFS extends Component {
                 label: 'Last Name',
                 elementConfig: {
                     type: 'text',
-                    placeholder:'Last Name'
+                    placeholder: 'Last Name'
                 },
                 value: '',
                 validation: {
@@ -94,24 +95,10 @@ class PFS extends Component {
                 valid: false,
                 touched: false
             },
-            // company: {
-            //     elementType: 'checkbox',
-            //     label: 'Do you know what company you want to get referred? Currently, our referrers work for Salesforce, Workday, Microsoft, Stripe, Cisco, Google, IBM, Enjoy Technology, Bright Power, OmniSci, and Facebook.',
-            //     elementConfig: {
-            //         type: 'checkbox',
-            //         checked: true
-            //     },
-            //     value: '',
-            //     validation: {
-            //         required: true
-            //     },
-            //     valid: false,
-            //     touched: false
-            // },
         },
         formIsValid: false,
         loading: false,
- };
+    };
 
     checkValidity(value, rules) {
         let isValid = true;
@@ -151,7 +138,7 @@ class PFS extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        this.setState( { loading: true } );
+        this.setState({ loading: true });
         const formData = {};
         for (let formElementIdentifier in this.state.participantForm) {
             // Set a key and value
@@ -160,44 +147,72 @@ class PFS extends Component {
         const participant = {
             myData: formData
         }
-        axios.post( '/participant.json', participant )
-            .then( response => {
-                this.setState( { loading: false } );
+        axios.post('/', participant)
+            .then(response => {
+                this.setState({ loading: false });
                 console.log(response);
-            } )
-            .catch( error => {
-                this.setState( { loading: false } );
-            } );
+            })
+            .catch(error => {
+                this.setState({ loading: false });
+            });
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
         // Creating a copy of participantForm
-         const updatedParticipantForm = {
-             ...this.state.participantForm
-         };
-         // Accessing value of participantForm
-         const updatedFormElement = { 
-             ...updatedParticipantForm[inputIdentifier]
-         };
-         updatedFormElement.value = event.target.value;
-         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-         updatedFormElement.touched = true;
-         updatedParticipantForm[inputIdentifier] = updatedFormElement;
-         this.setState({participantForm: updatedParticipantForm});
+        const updatedParticipantForm = {
+            ...this.state.participantForm
+        };
+        // Accessing value of participantForm
+        const updatedFormElement = {
+            ...updatedParticipantForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedParticipantForm[inputIdentifier] = updatedFormElement;
+        this.setState({ participantForm: updatedParticipantForm });
     }
+
+    getDropdownButtonLabel = (event) => {
+        this.setState({ companyNameAPI: event },
+            () => console.log('Option selected', this.state.companyNameAPI)
+        );
+    };
 
     render() {
         const formElementsArray = [];
+        const companyNameList = [];
+
         for (let key in this.state.participantForm) {
             formElementsArray.push({
                 id: key,
                 config: this.state.participantForm[key]
             });
         }
+
+        for (let key in this.props.companyNames) {
+            try {
+                companyNameList.push({
+                    id: key,
+                    config: this.props.companyNames[key]
+                });
+            } catch (e) {
+                break
+            }
+        }
+
+        let options = []
+        if (this.props.companyNames) {
+            options = Object.entries(this.props.companyNames).map(company => {
+                return (
+                    { label: company[1].name, value: company[1].name }
+                );
+            });
+        }
         let form = (
             <form onSubmit={this.submitHandler}>
                 {formElementsArray.map(formElement => (
-                    <Input 
+                    <Input
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
@@ -208,17 +223,18 @@ class PFS extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                {/* <button className={classes.FormButton} disabled={!this.state.formIsValid}>Submit</button> */}
                 <button className={classes.FormButton}>Submit</button>
             </form>
         );
-        if ( this.state.loading ) {
+        if (this.state.loading) {
             form = <Spinner />;
         }
         return (
             <div>
                 <h1>Participant Form</h1>
                 <p>Welcome to Referral Program! Our mission is to help you find the best position</p>
+                <p>Please choose 3 company names</p>
+                <ReactMultiSelectCheckboxes options={options} onChange={this.getDropdownButtonLabel} />
                 {form}
             </div>
         );
