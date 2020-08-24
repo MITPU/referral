@@ -1,7 +1,9 @@
 import { RECEIVE_COMPANIES } from './actions';
+import { RECEIVE_SKILLS } from './actions';
 
 const initialState = {
-    companyNames: []
+    companyNames: [],
+    skills: []
 };
 
 const reducer = (state = initialState, action) => {

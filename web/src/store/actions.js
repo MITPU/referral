@@ -1,5 +1,6 @@
 import axios from 'axios';
-export const RECEIVE_COMPANIES = 'RECEIVE_COMPANIES'
+export const RECEIVE_COMPANIES = 'RECEIVE_COMPANIES';
+export const RECEIVE_SKILLS = 'RECEIVE_SKILLS';
 
 export const fetchCOMPANIES = () => {
     const config = {
