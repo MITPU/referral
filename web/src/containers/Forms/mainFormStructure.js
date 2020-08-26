@@ -30,8 +30,7 @@ class FormBuilder extends Component {
                         <Route path="/admin" component={Admin} />
                         <Route path="/" render={() => (<Participant 
                             companyName={this.props.companyNames}
-                            companySkill={this.props.skills}  />)} />
-                            
+                            companySkill={this.props.skills}  />)} /> 
                         <Route path="/login" />
                     </Switch>
                 </Aux>

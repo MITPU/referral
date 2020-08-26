@@ -5,34 +5,36 @@ import Spinner from '../../UI/Spinner/Spinner';
 import classes from './PFS.css';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import { Multiselect } from 'multiselect-react-dropdown';
+import Career from './CareerLinks/Career';
+// import { FormControl, Row, Col, Form } from 'react-bootstrap';
+// import Modal from '../../UI/Modal/Modal';
 
 class PFS extends Component {
     state = {
-        companyNameAPI: [],
-        candidateSkills: [],
+        companyNames: [],
+        candidateSkills: [{name:'', careerLink:''}],
+        careerLinks: [],
         participantForm: {
-            email: {
-                elementType: 'input',
-                label: 'Email Address',
-                elementConfig: {
-                    type: 'email',
-                    placeholder: 'Email'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 3,
-                    maxLength: 45,
-                },
-                valid: false,
-                touched: false
-            },
             firstName: {
                 elementType: 'input',
                 label: 'First Name',
                 elementConfig: {
                     type: 'text',
                     placeholder:'First Name'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            middleName: {
+                elementType: 'input',
+                label: 'Middle Name',
+                elementConfig: {
+                    type: 'text',
+                    placeholder:'Middle Name'
                 },
                 value: '',
                 validation: {
@@ -55,23 +57,25 @@ class PFS extends Component {
                 valid: false,
                 touched: false
             },
-            location: {
+            email: {
                 elementType: 'input',
-                label: 'Where are you located?',
+                label: 'Email Address',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'Location'
+                    type: 'email',
+                    placeholder: 'Email'
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    minLength: 3,
+                    maxLength: 45,
                 },
                 valid: false,
                 touched: false
             },
             phone: {
                 elementType: 'input',
-                label: 'What is your phone number',
+                label: 'Phone Number',
                 elementConfig: {
                     type: 'digits',
                     placeholder: 'Numbers'
@@ -83,6 +87,76 @@ class PFS extends Component {
                 valid: false,
                 touched: false
             },
+            city: {
+                elementType: 'input',
+                label: 'City',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'City'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            state: {
+                elementType: 'input',
+                label: 'State',
+                elementConfig: {
+                    type: 'digits',
+                    placeholder: 'Numbers'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            zipCode: {
+                elementType: 'input',
+                label: 'zipCode',
+                elementConfig: {
+                    type: 'digits',
+                    placeholder: 'zipCode'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            country: {
+                elementType: 'input',
+                label: 'country',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'country'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            workAuthorization: {
+                elementType: 'select',
+                label: 'Work Authorization',
+                elementConfig: {
+                    options: [
+                        {value: '1', displayValue: 'H1B'},
+                        {value: '2', displayValue: 'OPT'},
+                        {value: '3', displayValue: 'CPT'},
+                        {value: '4', displayValue: 'F1'}
+                    ]
+                },
+                value: ''
+            },
+            
             resume: {
                 elementType: 'input',
                 label: 'Please upload your most recent resume here.',
@@ -115,7 +189,6 @@ class PFS extends Component {
         if (rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid
         }
-
         return isValid
     }
 
@@ -127,7 +200,9 @@ class PFS extends Component {
             // Set a key and value
             formData[formElementIdentifier] = this.state.participantForm[formElementIdentifier].value;
         }
+        console.log(formData)
         const participant = {
+
             myData: formData
         }
         axios.post( '/', participant )
@@ -157,9 +232,26 @@ class PFS extends Component {
     }
 
     getDropdownButtonLabel = (event) => {
-        this.setState({ companyNameAPI: event },
-            () => console.log('Option selected', this.state.companyNameAPI)
+        this.setState({ companyNames: event },
+            // () => console.log('Option selected', this.state.companyNames)
             );
+    };
+
+    careerLinkHandler = (event, companyName) => {
+        // const career = [...this.state.candidateSkills];
+        const value = {companyName,companyName: event.target.value};
+        this.setState({careerLinks: value})
+  
+        // this.setState({
+        //     careerLinks:[...this.state.careerLinks, initialArray]
+        // });
+
+        // console.log("I am career",career)
+        
+        // console.log("hopeful2", career)
+
+        // this.setState(
+        //     {careerLinks: career})
     };
 
     // constructor helps to define state when calling the function onSelect
@@ -175,9 +267,7 @@ class PFS extends Component {
             );
     };
 
-
     render() {
-    
         const formElementsArray = [];
         const companyNameList = [];
 
@@ -203,7 +293,7 @@ class PFS extends Component {
         if (this.props.companyNames) {
             options = Object.entries(this.props.companyNames).map(company => {
                 return (
-                    { label: company[1].name, value : company[1].name}
+                    { label: company[1].name, value : company[0]}
                 );
             });
         }
@@ -216,6 +306,7 @@ class PFS extends Component {
                 );
             });
         }
+
         let form = (
             <form onSubmit={this.submitHandler}>
                 {formElementsArray.map(formElement => (
@@ -237,29 +328,39 @@ class PFS extends Component {
         if ( this.state.loading ) {
             form = <Spinner />;
         }
-        console.log("updated",this.state)
+        
+        let career = null;
+        if ( this.state.companyNames.length > 0  ) {
+            career = (
+                <div>
+                    {this.state.companyNames.map((acar, index) => {
+                        return <Career 
+                            name={acar.label}
+                            key={index}
+                            changed={(event) => this.careerLinkHandler(event, acar.label)} />
+                    })}
+                </div>
+            )
+        }
+        console.log(this.state)
+
         return (
             <div>
-                {/* <p>{this.props.companyNames[0].name}</p> */}
                 <h1>Participant Form</h1>
                 <p>Welcome to Referral Program! Our mission is to help you find the best position</p>
                 <p>Please choose 3 company names</p>
-                {/* <ReactMultiSelectCheckboxes options={options} onChange={(event) => console.log(event)} /> */}
+                
                 <ReactMultiSelectCheckboxes 
                     options={options} 
-                    onChange={this.getDropdownButtonLabel} />
-                {/* <Multiselect
-                    options={skills} // Options to display in the dropdown
-                    displayValue="name" // Property name to display in the dropdown options
-                    ref={this.multiselectRef}
-                    /> */}
+                    onChange={this.getDropdownButtonLabel}/>
+                {career} 
                 <Multiselect
-                    options={skills} // Options to display in the dropdown
-                    selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                    onSelect={this.onSelect} // Function will trigger on select event
-                    onRemove={this.onRemove} // Function will trigger on remove event
-                    displayValue="name" // Property name to display in the dropdown options
-                    />    
+                    options={skills} 
+                    selectedValues={this.state.selectedValue} 
+                    onSelect={this.onSelect} 
+                    onRemove={this.onRemove}
+                    displayValue="name" 
+                    />
                 {form}
             </div>
         );

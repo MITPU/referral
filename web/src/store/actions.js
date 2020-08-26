@@ -30,7 +30,7 @@ export const fetchSKILLS = () => {
         return (
             axios(config)
                 .then((response) => {
-                    // console.log(response);
+                    console.log(response);
                     dispatch({type: "RECEIVE_SKILLS", names: response.data})
                 })
                 .catch((err) => {
