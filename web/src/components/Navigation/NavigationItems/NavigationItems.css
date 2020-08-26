@@ -6,6 +6,7 @@
     flex-flow: column;
     align-items: center;
     height: 100%;
+    margin-top: -15%;
 }
 
 @media (min-width: 500px) {
