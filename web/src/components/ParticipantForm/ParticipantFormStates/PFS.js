@@ -4,10 +4,12 @@ import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './PFS.css';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
+import { Multiselect } from 'multiselect-react-dropdown';
 
 class PFS extends Component {
     state = {
         companyNameAPI: [],
+        candidateSkills: [],
         participantForm: {
             email: {
                 elementType: 'input',
@@ -117,25 +119,6 @@ class PFS extends Component {
         return isValid
     }
 
-    // Not finished yet
-    // myInputChangedMethod = (myId, event) => {
-    //     let myDisplayResult = null;
-    //     const myFormClone = {...this.state.participantForm};
-    //     const myFormElementClone = {...myFormClone[myId]};
-    //     if (myId === 'myCheckbox') {
-    //         let myCheckedStatus = myFormElementClone.elementConfig.checked;
-    //         myFormElementClone.elementConfig.checked = !myCheckedStatus;
-    //         myFormClone[myId] = myFormElementClone;
-    //         myDisplayResult = !myCheckedStatus ? 'True' : 'False';
-    //         this.setState({participantForm: myFormClone, myDisplayResult: myDisplayResult});
-    //         return;
-    //     }
-    //     myFormElementClone.value = event.target.value;
-    //     myFormClone[myId] = myFormElementClone;
-    //     myDisplayResult = event.target.value;
-    //     this.setState({participantForm: myFormClone, myDisplayResult});
-    // };
-
     submitHandler = (event) => {
         event.preventDefault();
         this.setState({ loading: true });
@@ -174,12 +157,25 @@ class PFS extends Component {
     }
 
     getDropdownButtonLabel = (event) => {
-        this.setState({ companyNameAPI: event },
-            () => console.log('Option selected', this.state.companyNameAPI)
-        );
+        this.setState({ companyNameAPI: event }
+            );
+    };
+
+    // constructor helps to define state when calling the function onSelect
+    constructor() {
+        super();
+        this.state.candidateSkills = [],
+        this.onSelect = this.onSelect.bind(this);
+    }
+
+    onSelect = (selectedItem) => {
+        this.setState({
+            candidateSkills: selectedItem }
+            );
     };
 
     render() {
+    
         const formElementsArray = [];
         const companyNameList = [];
 
@@ -200,12 +196,21 @@ class PFS extends Component {
                 break
             }
         }
-
+        // Changing companyNames
         let options = []
         if (this.props.companyNames) {
             options = Object.entries(this.props.companyNames).map(company => {
                 return (
                     { label: company[1].name, value: company[1].name }
+                );
+            });
+        }
+        // Changing CompanySkills
+        let skills = []
+        if (this.props.candidateSkills) {
+            skills = Object.entries(this.props.candidateSkills).map(skill => {
+                return (
+                    { name: skill[1].skill}
                 );
             });
         }
@@ -234,7 +239,16 @@ class PFS extends Component {
                 <h1>Participant Form</h1>
                 <p>Welcome to Referral Program! Our mission is to help you find the best position</p>
                 <p>Please choose 3 company names</p>
-                <ReactMultiSelectCheckboxes options={options} onChange={this.getDropdownButtonLabel} />
+                <ReactMultiSelectCheckboxes 
+                    options={options} 
+                    onChange={this.getDropdownButtonLabel} />
+                <Multiselect
+                    options={skills} 
+                    selectedValues={this.state.selectedValue} 
+                    onSelect={this.onSelect} 
+                    onRemove={this.onRemove} 
+                    displayValue="name" 
+                    />    
                 {form}
             </div>
         );
