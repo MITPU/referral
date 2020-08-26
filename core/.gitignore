@@ -22,3 +22,7 @@ build/
 
 *.mwb.bak
 *application-dev.properties
+
+.classpath
+.project
+.settings
