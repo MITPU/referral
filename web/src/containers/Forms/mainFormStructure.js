@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Aux from '../../hoc/Auxiliary';
+import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Participant from '../../components/ParticipantForm/ParticipantForm';
 import Referrer from '../../components/ReferrerForm/ReferrerForm';
 import Admin from '../../components/Admin/Admin';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {fetchCOMPANIES} from '../../store/actions';
+import { fetchCOMPANIES } from '../../store/actions';
 import {fetchSKILLS} from '../../store/actions';
 
 class FormBuilder extends Component {
@@ -30,7 +30,8 @@ class FormBuilder extends Component {
                         <Route path="/admin" component={Admin} />
                         <Route path="/" render={() => (<Participant 
                             companyName={this.props.companyNames}
-                            companySkill={this.props.skills}  />)} /> 
+                            companySkill={this.props.skills}  />)} />
+                            
                         <Route path="/login" />
                     </Switch>
                 </Aux>

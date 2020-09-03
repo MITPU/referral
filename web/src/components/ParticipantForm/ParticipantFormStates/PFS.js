@@ -3,17 +3,16 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
 import classes from './PFS.css';
+import Career from './CareerLinks/Career';
+
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import { Multiselect } from 'multiselect-react-dropdown';
-import Career from './CareerLinks/Career';
-// import { FormControl, Row, Col, Form } from 'react-bootstrap';
-// import Modal from '../../UI/Modal/Modal';
 
 class PFS extends Component {
     state = {
         companyNames: [],
-        candidateSkills: [{name:'', careerLink:''}],
-        careerLinks: [],
+        candidateSkills: [],
+        careerLinks: new Map(),
         participantForm: {
             firstName: {
                 elementType: 'input',
@@ -159,6 +158,7 @@ class PFS extends Component {
             
             resume: {
                 elementType: 'input',
+                
                 label: 'Please upload your most recent resume here.',
                 elementConfig: {
                     type: 'file',
@@ -232,29 +232,15 @@ class PFS extends Component {
     }
 
     getDropdownButtonLabel = (event) => {
-        this.setState({ companyNames: event },
-            // () => console.log('Option selected', this.state.companyNames)
+        this.setState({ companyNames: event }
             );
     };
 
-    careerLinkHandler = (event, companyName) => {
-        // const career = [...this.state.candidateSkills];
-        const value = {companyName,companyName: event.target.value};
-        this.setState({careerLinks: value})
-  
-        // this.setState({
-        //     careerLinks:[...this.state.careerLinks, initialArray]
-        // });
-
-        // console.log("I am career",career)
+    careerLinkHandler = (event, aCompany) => {
         
-        // console.log("hopeful2", career)
-
-        // this.setState(
-        //     {careerLinks: career})
+        this.state.careerLinks.set(aCompany, event.target.value)
+        console.log(this.state.careerLinks.values())
     };
-
-    // constructor helps to define state when calling the function onSelect
     constructor() {
         super();
         this.state.candidateSkills = [],
@@ -289,7 +275,6 @@ class PFS extends Component {
                 break
             }
         }
-        // Changing companyNames
         let options = []
         if (this.props.companyNames) {
             options = Object.entries(this.props.companyNames).map(company => {
@@ -298,7 +283,6 @@ class PFS extends Component {
                 );
             });
         }
-        // Changing CompanySkills
         let skills = []
         if (this.props.candidateSkills) {
             skills = Object.entries(this.props.candidateSkills).map(skill => {
