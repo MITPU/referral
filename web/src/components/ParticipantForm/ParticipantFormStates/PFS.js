@@ -197,10 +197,8 @@ class PFS extends Component {
         this.setState({ loading: true });
         const formData = {};
         for (let formElementIdentifier in this.state.participantForm) {
-            // Set a key and value
             formData[formElementIdentifier] = this.state.participantForm[formElementIdentifier].value;
         }
-        console.log(formData)
         const participant = {
 
             myData: formData
@@ -216,11 +214,9 @@ class PFS extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        // Creating a copy of participantForm
         const updatedParticipantForm = {
             ...this.state.participantForm
         };
-        // Accessing value of participantForm
         const updatedFormElement = {
             ...updatedParticipantForm[inputIdentifier]
         };
