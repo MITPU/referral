@@ -3,7 +3,7 @@ import classes from './Referrer.css';
 import RFS from './ReferrerFormStates/RFS';
 import {Route} from 'react-router-dom';
 
-const ReferrerForm = (props) => {
+const ParticipantForm = (props) => {
 
     return (
         <div className = {classes.Participant}>
@@ -13,4 +13,4 @@ const ReferrerForm = (props) => {
     );
 };
 
-export default ReferrerForm
+export default ParticipantForm
