@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    background-color: black;
+}
+
+.sidebar {
+    flex: 4;
+}
