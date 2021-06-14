@@ -5,7 +5,7 @@ import NavigationItem from './NagivationItem/NavigationItem'
 
 const navigationItems = () => (
     <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" active>
+        <NavigationItem link="/">
             Participant Form
         </NavigationItem>
         <NavigationItem link="/referrer">

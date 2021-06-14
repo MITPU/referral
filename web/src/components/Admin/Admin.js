@@ -1,19 +1,21 @@
 import React from 'react';
-import classes from '../ReferrerForm/Referrer.css';
-// import Admin from './AdminForm/Admin';
 import {Route} from 'react-router-dom';
-import Dashboard from "../DashboardComponents/Dashboard";
+import Sidebar from "../Admin/DashboardComponents/Sidebar/Sidebar";
+import Topbar from "../Admin/DashboardComponents/Topbar/Topbar";
+import MyCandidates from "../Admin/DashboardComponents/Sidebar/MyCandidates/MyCandidates";
 
-const ParticipantForm = (props) => {
+const Admin = (props) => {
 
     return (
-        <div className = {classes.Participant}>
-            {/* <Route
-            render={() => (<Admin />) }/> */}
+        <React.Fragment>
             <Route
-            render={() => (<Dashboard />) }/>
-        </div>
+            render={() => (<Topbar />) }/>
+            <Route
+            render={() => (<Sidebar />) }/>
+            <Route
+            render={() => (<MyCandidates />) }/>
+        </React.Fragment>
     );
 };
 
-export default ParticipantForm;
+export default Admin;
