@@ -2,14 +2,13 @@
     display: grid;
     grid-template-columns: 70% 30%;
     height: 5rem;
-    font-size: 2em;
 }
 
 .title {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3.5vw;
+    font-size: 3.2vw;
 }
 
 .search {
@@ -37,3 +36,21 @@
     background-color: rgba(228, 230, 238, 0.966);
 }
 
+@media only screen and (max-width: 768px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .search {
+        font-size: 10px;
+    }
+
+    .search input {     
+        height: 20px;
+        width: 80px; 
+    }
+    
+    .search button {
+        height: 20px;
+    }
+}

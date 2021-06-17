@@ -7,11 +7,15 @@
     height: 30rem;
 }
 .stage {
-    background-color: blue;
+    background-color: gray;
     height: 30rem;
 }
 
 .email {
-    background-color: bisque;
+    background-color: green;
     height: 30rem;
+}
+
+.firstThreeLines {
+    height: 2em;
 }

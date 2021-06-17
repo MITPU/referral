@@ -1,16 +1,13 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import MockComponent from './MockComponent';
 import classes from './MyCandidates.css';
+import {personOne, personTwo, personThree } from '../../../../MockData';
 
 function MyCandidates() {
     return (
         <React.Fragment>
-            <Row>
-                <Col md={6} className={classes.candidates}><p>My cadindates</p></Col>
-                <Col md={6} className={classes.sla}><p>SLA</p></Col>
-                <Col md={6} className={classes.stage}><p>STAGE</p></Col>
-                <Col md={6} className={classes.email}><p>Last email</p></Col>
-            </Row>
+            <MockComponent {...personOne} />
         </React.Fragment>
     )
 }
