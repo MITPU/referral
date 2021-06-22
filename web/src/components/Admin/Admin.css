@@ -1,0 +1,15 @@
+.container {
+    display: grid;
+    min-height: 100vh;
+    grid-template-areas: "sidebar" "main";
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 1fr;
+}
+
+.sidebar {
+    grid-area: "sidebar";
+}
+
+.main {
+    grid-area: "main";
+}

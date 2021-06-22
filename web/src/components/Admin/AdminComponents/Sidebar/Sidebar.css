@@ -1,0 +1,23 @@
+.sidebar {
+    background-color: rgb(251, 251, 255);
+    margin: 10px;
+    padding: 20px;
+
+}
+
+
+/*
+
+@media only screen and (max-width: 768px) {
+    .sidebar {
+        top: 50px;
+    }
+
+    .sidebarListItem {
+        font-size: 15px;
+    }
+    
+    .sidebarWrapper {
+        padding: 10px;
+    }   
+} */

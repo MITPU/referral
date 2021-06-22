@@ -1,0 +1,23 @@
+.row {
+   height: 90px;
+   text-align: center;
+   border: 2px solid;
+}
+
+.table {
+    margin: 30px;
+}
+
+.column {
+    width: 150px;
+}
+
+.header {
+    text-align: center;
+    padding: 10px;
+}
+
+.email {
+    overflow-x: scroll;
+    overflow: hidden;
+}

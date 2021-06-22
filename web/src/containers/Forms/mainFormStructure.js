@@ -3,6 +3,7 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Participant from '../../components/ParticipantForm/ParticipantForm';
 import Referrer from '../../components/ReferrerForm/ReferrerForm';
 import Admin from '../../components/Admin/Admin';
+import MyCandidates from '../../components/Admin/AdminComponents/Sidebar/MyCandidates/MyCandidates';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCOMPANIES } from '../../store/actions';
@@ -31,6 +32,7 @@ class FormBuilder extends Component {
                         <Route path="/" render={() => (<Participant 
                             companyName={this.props.companyNames}
                             companySkill={this.props.skills}  />)} />
+                        <Route path="/mycandidates" component={MyCandidates} exact={true}/>
                             
                         <Route path="/login" />
                     </Switch>

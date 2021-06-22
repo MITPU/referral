@@ -1,19 +1,24 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import Sidebar from "../Admin/DashboardComponents/Sidebar/Sidebar";
-import Topbar from "../Admin/DashboardComponents/Topbar/Topbar";
-import MyCandidates from "../Admin/DashboardComponents/Sidebar/MyCandidates/MyCandidates";
+import classes from './Admin.css';
+import Sidebar from "./AdminComponents/Sidebar/Sidebar";
+import Topbar from "./AdminComponents/Topbar/Topbar";
+import MyCandidates from "./AdminComponents/Sidebar/MyCandidates/MyCandidates";
 
 const Admin = (props) => {
 
     return (
         <React.Fragment>
+        <div>
             <Route
             render={() => (<Topbar />) }/>
-            <Route
+        </div>
+        <div className={classes.container}>
+            <Route className={classes.sidebar}
             render={() => (<Sidebar />) }/>
-            <Route
+            <Route className={classes.main}
             render={() => (<MyCandidates />) }/>
+        </div>
         </React.Fragment>
     );
 };

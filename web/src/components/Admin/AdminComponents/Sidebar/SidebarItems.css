@@ -1,0 +1,26 @@
+.SidebarItems {
+    list-style: none;
+    font-size: 23px;
+    padding: 8px;
+}
+
+.SidebarItems a {
+    text-decoration: none;
+    color: #0c5b95;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* @media only screen and (max-width: 768px) {
+    .sidebar {
+        top: 50px;
+    }
+
+    .sidebarListItem {
+        font-size: 15px;
+    }
+    
+    .sidebarWrapper {
+        padding: 10px;
+    }   
+} */
