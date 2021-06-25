@@ -29,6 +29,12 @@ The project is Maven project, so you can use any IDE for development.
    2. Menu bar -> Run -> Run -> select 'CoreApplication.java'.
    3. Click on the green play button, left side of the class.
  - For default, application will listen 8080 port on your localhost.
+#### 3. Local development from terminal
+ - Install openJDK v14: `brew install openjdk@14`
+ - Install Apache Maven 3.6: `brew install maven@3.6`
+ - Make sure to update [devapplication-dev.properties](https://github.com/MITPU/referral/blob/develop/core/src/main/resources/application-dev.properties) so that it points to the referral database. Use the [credentials](https://docs.google.com/document/d/1cN5e3Z8K0qv_8f0RLT1N7CIEwg-2PLN__Iv9Wq9NRUg/edit) file for details.
+ - Compile and run the java application: `mvn spring-boot:run`
+ - You should be able to query `localhost:8080/candidates`
  
 #### 4. Test application
 - Open postman application.
