@@ -1,27 +1,28 @@
 import React from 'react';
 import classes from './Topbar.css';
+import SearchBar from './SearchBar';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Topbar() {
     return (
-        <React.Fragment>
-            <div className={classes.container}>
-              <div className={classes.title}>
-              <p>MITPU Applicant Tracking System</p>
-            </div>
-            <div className={classes.search}>
-              <form action="/" method="get">
-                <label htmlFor="header-search">
-                </label>
-              <input
-                type="text"
-                id="header-search"
-                placeholder="Search"
-                />
-              <button type="submit">Search</button>
-              </form>
-            </div>
-            </div>
-        </React.Fragment>
+      <div>
+        <Row>
+          <Col xs={9} className={classes.title}><p>MITPU Applicant Tracking System</p>
+          </Col>
+          <Col xs={3} className={classes.search}><SearchBar />
+          </Col>
+        </Row>
+      </div>
+        // <React.Fragment>
+        //     <div className={classes.container}>
+        //       <div className={classes.title}>
+        //       <p>MITPU Applicant Tracking System</p>
+        //       </div>
+        //       <div className={classes.search}>
+        //         <SearchBar />
+        //       </div>
+        //     </div>
+        // </React.Fragment>
     )
 }
 

@@ -1,7 +1,8 @@
 .SidebarItems {
     list-style: none;
-    font-size: 23px;
-    padding: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    padding-top: 18px;
 }
 
 .SidebarItems a {
@@ -11,16 +12,18 @@
     box-sizing: border-box;
 }
 
-/* @media only screen and (max-width: 768px) {
-    .sidebar {
-        top: 50px;
-    }
 
-    .sidebarListItem {
-        font-size: 15px;
+/* On screens that are less than 700px wide */
+@media screen and (max-width: 700px) {
+    .SidebarItems {
+      height: auto;
+      position: relative;
+      width: 180px;
     }
-    
-    .sidebarWrapper {
-        padding: 10px;
-    }   
-} */
+}
+
+@media (max-width: 1000px) {
+    .SidebarItems {
+        font-size: 16px;
+    }
+}
