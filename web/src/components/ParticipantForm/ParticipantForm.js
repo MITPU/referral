@@ -11,4 +11,4 @@ const ParticipantForm = (props) => {
     );
 };
 
-export default ParticipantForm
+export default ParticipantForm;

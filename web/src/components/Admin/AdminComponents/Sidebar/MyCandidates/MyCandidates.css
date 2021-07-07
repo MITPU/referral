@@ -1,0 +1,13 @@
+.column {
+   width: 100px;
+}
+
+.header {
+    text-align: center;
+}
+
+.email {
+    display: flex;
+    overflow-x: scroll;
+    overflow: hidden;
+}

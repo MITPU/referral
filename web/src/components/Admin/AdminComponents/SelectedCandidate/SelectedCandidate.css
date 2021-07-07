@@ -1,0 +1,6 @@
+.container {
+    border: 1px solid rgb(220, 223, 226);
+    box-shadow: 2px 2px 2px 2px rgb(235, 233, 233);
+    margin: 10px;
+    min-height: 150px;
+}

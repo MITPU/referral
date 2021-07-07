@@ -1,9 +1,11 @@
 import { RECEIVE_COMPANIES } from './actions';
 import { RECEIVE_SKILLS } from './actions';
+import { RECEIVE_CANDIDATES } from './actions';
 
 const initialState = {
     companyNames: [],
-    skills: []
+    skills: [],
+    candidates: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +16,10 @@ const reducer = (state = initialState, action) => {
             }
         case RECEIVE_SKILLS: {
             return {...state, skills:action.names}
+            break;
+            }
+        case RECEIVE_CANDIDATES: {
+            return {...state, candidates:action.candidates}
             break;
             }
         default:

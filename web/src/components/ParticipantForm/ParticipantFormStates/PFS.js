@@ -345,4 +345,4 @@ class PFS extends Component {
         );
     }
 }
-export default PFS
+export default PFS;
