@@ -19,6 +19,7 @@ public class CompanyDto extends Dto {
     private String country;
 
     public CompanyDto() {
+        super("Company");
     }
 
     public Integer getId() {

@@ -5,18 +5,18 @@ public enum WorkAuthorization {
 
     public static WorkAuthorization getWorkAuthorization(byte value) {
         switch (value) {
-        case 0:
-            return CPT;
-        case 1:
-            return OPT;
-        case 2:
-            return H1B;
-        case 3:
-            return GC;
-        case 4:
-            return CITIZEN;
-        default:
-            return null;
+            case 0:
+                return CPT;
+            case 1:
+                return OPT;
+            case 2:
+                return H1B;
+            case 3:
+                return GC;
+            case 4:
+                return CITIZEN;
+            default:
+                return null;
         }
     }
 

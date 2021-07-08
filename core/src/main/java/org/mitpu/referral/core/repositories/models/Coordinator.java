@@ -10,12 +10,12 @@ public class Coordinator extends Person {
 
         public static Role getRole(byte value) {
             switch (value) {
-            case 0:
-                return REGULAR;
-            case 1:
-                return ADMIN;
-            default:
-                return null;
+                case 0:
+                    return REGULAR;
+                case 1:
+                    return ADMIN;
+                default:
+                    return null;
             }
         }
 

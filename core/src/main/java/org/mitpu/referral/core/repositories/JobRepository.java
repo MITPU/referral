@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.repositories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.Job;
 import org.mitpu.referral.core.services.DateTimeUtils;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Component
 public class JobRepository {
+
+    private static final Logger LOGGER = LogManager.getLogger(JobRepository.class);
 
     private RowMapper<Job> mapper = (rs, rowNum) -> {
         Job job = new Job();
@@ -44,10 +48,11 @@ public class JobRepository {
     public Job findById(Integer id) {
         Job job = null;
         try {
-            Object[] parameters = new Object[] {id};
+            Object[] parameters = new Object[]{id};
             String query = "SELECT * FROM job WHERE id = ?";
             job = jdbcTemplate.queryForObject(query, parameters, mapper);
         } catch (EmptyResultDataAccessException er) {
+            LOGGER.debug("Query returned empty result set.");
         }
         return job;
     }
@@ -68,7 +73,7 @@ public class JobRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {
+            Object[] parameters = new Object[]{
                     job.getCompanyId(),
                     job.getCandidateId(),
                     job.getPosition(),
@@ -89,14 +94,14 @@ public class JobRepository {
             }
         } catch (DataAccessException dae) {
             dae.printStackTrace();
-            DBUtils.throwConflictException(dae);
+            DBUtils.catchException(dae);
         }
         return JobId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        Object[] parameters = new Object[] {id};
+        Object[] parameters = new Object[]{id};
         String query = "DELETE FROM job WHERE id = ?";
         if (jdbcTemplate.update(query, parameters) > 0) {
             isDeleted = true;

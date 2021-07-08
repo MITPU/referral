@@ -25,8 +25,8 @@ public class CandidateValidation extends Validation {
             validateRequestProperty(DBConstants.Column.COUNTRY, candidateDto.getCountry(), false);
             validateRequestProperty(DBConstants.Column.WORKAUTHORIZATION, candidateDto.getWorkAuthorization(), false);
             validateRequestProperty(DBConstants.Column.LINKEDIN, candidateDto.getLinkedin(), true);
-            validateRequestProperty(DBConstants.Column.STAGE, candidateDto.getStage(), false);
-            validateRequestProperty(DBConstants.Column.STATUS, candidateDto.getStatus(), false);
+            validateRequestProperty(DBConstants.Column.STAGE, candidateDto.getStage(), true);
+            validateRequestProperty(DBConstants.Column.STATUS, candidateDto.getStatus(), true);
             validateRequestProperty(DBConstants.Column.ABOUT, candidateDto.getAbout(), false);
             validateRequestProperty(DBConstants.Column.COORDINATOR_ID, candidateDto.getCoordinatorId(), true);
         } else if (requestMethod == RequestMethod.PUT || requestMethod == RequestMethod.PATCH) {

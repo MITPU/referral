@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.services.main;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.CandidateParticipationRepository;
 import org.mitpu.referral.core.repositories.CandidateRepository;
 import org.mitpu.referral.core.repositories.CandidateSkillRepository;
@@ -7,12 +9,13 @@ import org.mitpu.referral.core.repositories.JobRepository;
 import org.mitpu.referral.core.repositories.models.Candidate;
 import org.mitpu.referral.core.repositories.models.CandidateForm;
 import org.mitpu.referral.core.repositories.models.CandidateParticipation;
-import org.mitpu.referral.core.services.exception.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CandidateFormService {
+
+    private static final Logger LOGGER = LogManager.getLogger(SkillService.class);
 
     private final static String OBJECT_NAME = "candidate form";
 
@@ -41,9 +44,6 @@ public class CandidateFormService {
 
         // saving candidate
         Integer newKey = candidateRepository.save(candidateForm.getCandidate());
-        if (newKey == null) {
-            throw new ConflictException(OBJECT_NAME);
-        }
 
         // set candidate's ID
         candidateForm.getSkillList().forEach(s -> s.setCandidateId(newKey));

@@ -1,10 +1,6 @@
 package org.mitpu.referral.core.controllers;
 
-import org.mitpu.referral.core.services.exception.ApplicationException;
-import org.mitpu.referral.core.services.exception.ConflictException;
-import org.mitpu.referral.core.services.exception.InvalidException;
-import org.mitpu.referral.core.services.exception.MissingException;
-import org.mitpu.referral.core.services.exception.NotFoundException;
+import org.mitpu.referral.core.services.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +11,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<Object> handle(NotFoundException nfe) {
+        return new ResponseEntity<>(nfe.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = ParentNotFoundException.class)
+    public ResponseEntity<Object> handle(ParentNotFoundException nfe) {
         return new ResponseEntity<>(nfe.getMessage(), HttpStatus.NOT_FOUND);
     }
 

@@ -13,6 +13,7 @@ public class CandidateParticipationDto extends Dto {
     private Byte status;
 
     public CandidateParticipationDto() {
+        super("Candidate's participation");
     }
 
     public Integer getId() {

@@ -7,6 +7,7 @@ public class SkillDto extends Dto {
     private String skill;
 
     public SkillDto() {
+        super("Skill");
     }
 
     public Integer getId() {

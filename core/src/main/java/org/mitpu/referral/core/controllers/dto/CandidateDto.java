@@ -37,6 +37,7 @@ public class CandidateDto extends Dto {
     private String about;
 
     public CandidateDto() {
+        super("Candidate");
     }
 
     public Integer getId() {

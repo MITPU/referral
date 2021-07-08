@@ -1,6 +1,6 @@
 package org.mitpu.referral.core.controllers.dto;
 
-public class JobDto extends Dto{
+public class JobDto extends Dto {
 
     private Integer id;
 
@@ -27,6 +27,7 @@ public class JobDto extends Dto{
     private Integer referrerId;
 
     public JobDto() {
+        super("Job");
     }
 
     public Integer getId() {

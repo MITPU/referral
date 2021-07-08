@@ -22,14 +22,14 @@ public class Referrer extends Person {
 
         public static CommMethodType getCommMethodType(byte value) {
             switch (value) {
-            case 0:
-                return EMAIL;
-            case 1:
-                return PHONE;
-            case 2:
-                return APPOINTMENT;
-            default:
-                return null;
+                case 0:
+                    return EMAIL;
+                case 1:
+                    return PHONE;
+                case 2:
+                    return APPOINTMENT;
+                default:
+                    return null;
             }
         }
 
@@ -46,12 +46,12 @@ public class Referrer extends Person {
 
         public static ReferMethodType getReferMethodType(byte value) {
             switch (value) {
-            case 0:
-                return INTERNAL;
-            case 1:
-                return EXTERNAL;
-            default:
-                return null;
+                case 0:
+                    return INTERNAL;
+                case 1:
+                    return EXTERNAL;
+                default:
+                    return null;
             }
         }
 

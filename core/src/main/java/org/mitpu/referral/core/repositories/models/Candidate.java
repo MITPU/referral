@@ -23,16 +23,16 @@ public class Candidate extends Person {
 
         public static Stage getStage(byte value) {
             switch (value) {
-            case 0:
-                return INITIAL;
-            case 1:
-                return READY_TO_REFER;
-            case 2:
-                return MISMATCH_POSITION;
-            case 3:
-                return TO_REFERRER;
-            default:
-                return null;
+                case 0:
+                    return INITIAL;
+                case 1:
+                    return READY_TO_REFER;
+                case 2:
+                    return MISMATCH_POSITION;
+                case 3:
+                    return TO_REFERRER;
+                default:
+                    return null;
             }
         }
 
@@ -48,20 +48,20 @@ public class Candidate extends Person {
 
         public static Status getStatus(byte value) {
             switch (value) {
-            case 0:
-                return NEW;
-            case 1:
-                return IN_PROGRESS;
-            case 2:
-                return DEACTIVE;
-            case 3:
-                return GOT_JOB;
-            case 4:
-                return DONE;
-            case 5:
-                return BLOCKED;
-            default:
-                return null;
+                case 0:
+                    return NEW;
+                case 1:
+                    return IN_PROGRESS;
+                case 2:
+                    return DEACTIVE;
+                case 3:
+                    return GOT_JOB;
+                case 4:
+                    return DONE;
+                case 5:
+                    return BLOCKED;
+                default:
+                    return null;
             }
         }
 

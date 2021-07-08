@@ -13,6 +13,7 @@ public class CandidateFormDto extends Dto {
     private List<JobDto> desiredJobList;
 
     public CandidateFormDto() {
+        super("Candidate form");
     }
 
     public CandidateDto getCandidate() {

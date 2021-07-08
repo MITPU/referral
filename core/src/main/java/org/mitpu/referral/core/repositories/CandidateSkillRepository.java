@@ -1,5 +1,7 @@
 package org.mitpu.referral.core.repositories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mitpu.referral.core.repositories.database.DBUtils;
 import org.mitpu.referral.core.repositories.models.CandidateSkill;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class CandidateSkillRepository {
+
+    private static final Logger LOGGER = LogManager.getLogger(CandidateSkillRepository.class);
 
     private RowMapper<CandidateSkill> mapper = (rs, rowNum) -> {
         CandidateSkill candidateSkill = new CandidateSkill();
@@ -35,10 +39,11 @@ public class CandidateSkillRepository {
     public CandidateSkill findById(Integer id) {
         CandidateSkill candidateSkill = null;
         try {
-            Object[] parameters = new Object[] {id};
+            Object[] parameters = new Object[]{id};
             String query = "SELECT * FROM candidate_skill WHERE id = ?";
             candidateSkill = jdbcTemplate.queryForObject(query, parameters, mapper);
         } catch (EmptyResultDataAccessException er) {
+            LOGGER.debug("Query returned empty result set.");
         }
         return candidateSkill;
     }
@@ -56,7 +61,7 @@ public class CandidateSkillRepository {
 
     public List<CandidateSkill> findAllByCandidateId(Integer candidateId) {
         List<CandidateSkill> candidateSkillList = null;
-        Object[] parameters = new Object[] {candidateId};
+        Object[] parameters = new Object[]{candidateId};
         String query = "SELECT * FROM candidate_skill WHERE candidate_id = ?";
         candidateSkillList = jdbcTemplate.query(query, parameters, mapper);
         if (candidateSkillList != null && candidateSkillList.isEmpty()) {
@@ -70,22 +75,22 @@ public class CandidateSkillRepository {
         try {
             KeyHolder personPrimaryKey = new GeneratedKeyHolder();
 
-            Object[] parameters = new Object[] {candidateSkill.getSkillId(), candidateSkill.getCandidateId(),
-                                                candidateSkill.getYear()};
+            Object[] parameters = new Object[]{candidateSkill.getSkillId(), candidateSkill.getCandidateId(),
+                    candidateSkill.getYear()};
             String query = "INSERT INTO candidate_skill (SKILL_ID, CANDIDATE_ID, YEAR) VALUES (?, ?, ?)";
 
             if (jdbcTemplate.update(conn -> DBUtils.createPsWithKey(conn, query, parameters), personPrimaryKey) > 0) {
                 skillId = personPrimaryKey.getKey().intValue();
             }
         } catch (DataAccessException dae) {
-            DBUtils.throwConflictException(dae);
+            DBUtils.catchException(dae);
         }
         return skillId;
     }
 
     public Boolean delete(Integer id) {
         Boolean isDeleted = false;
-        Object[] parameters = new Object[] {id};
+        Object[] parameters = new Object[]{id};
         String query = "DELETE FROM candidate_skill WHERE id = ?";
         if (jdbcTemplate.update(query, parameters) > 0) {
             isDeleted = true;
