@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./MyCandidates.css";
 import * as ReactBootstrap from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function MyCandidates(props) {
   return (
@@ -8,23 +9,33 @@ function MyCandidates(props) {
       <thead>
         <tr>
           <th>
-            <h4 className={classes.header}>Candidates</h4>
+            <h4>ID</h4>
           </th>
           <th>
-            <h4 className={classes.header}>SLA</h4>
+            <h4>Candidates</h4>
           </th>
           <th>
-            <h4 className={classes.header}>Stage</h4>
+            <h4>SLA</h4>
           </th>
           <th>
-            <h4 className={classes.header}>Last Email</h4>
+            <h4>Stage</h4>
+          </th>
+          <th>
+            <h4>Last Email</h4>
           </th>
         </tr>
       </thead>
       <tbody>
         {props.candidates.map((candidate) => (
           <tr key={candidate.id}>
-            <td>{candidate.firstname + " " + candidate.lastname}</td>
+            <td>{candidate.id}</td>
+            <td>
+              <Link className={classes.link}
+              to={`/candidate/${candidate.id}`}
+              >
+                {candidate.firstname + " " + candidate.lastname}
+              </Link>
+            </td>
             <td></td>
             <td>{candidate.stage}</td>
             <td>{candidate.email}</td>

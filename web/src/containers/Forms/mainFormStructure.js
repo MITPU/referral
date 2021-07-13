@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { fetchCOMPANIES } from "../../store/actions";
 import { fetchSKILLS } from "../../store/actions";
 import { fetchCANDIDATES } from "../../store/actions";
+import { fetchCANDIDATE } from '../../store/actions';
 
 class FormBuilder extends Component {
   state = {
@@ -34,12 +35,20 @@ class FormBuilder extends Component {
             <Route
               path="/admin"
               render={() => <Admin candidates={this.props.candidates} />}
-            />          
+            />
             <Route
-              path="/admin"
+              path="/mycandidates"
               render={() => <MyCandidates candidates={this.props.candidates} />}
             />
-            <Route path="/selectedcandidate" component={SelectedCandidate} />
+            <Route
+              path="/candidate/:id"
+              render={(props) => (
+                <SelectedCandidate
+                  {...props}
+                  candidates={this.props.candidates}
+                />
+              )}
+            />
             <Route path="/login" />
             <Route
               path="/"

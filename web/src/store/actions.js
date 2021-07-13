@@ -46,7 +46,6 @@ export const fetchCANDIDATES = () => {
     return axios(config)
       .then((response) => {
         dispatch({ type: "RECEIVE_CANDIDATES", candidates: response.data });
-        console.log(response.data);
       })
       .catch((err) => {
         dispatch({ type: "RECEIVE_ERROR", candidates: err });

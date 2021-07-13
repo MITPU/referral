@@ -11,3 +11,11 @@
     overflow-x: scroll;
     overflow: hidden;
 }
+
+.link:hover{
+    text-decoration: none;
+}
+
+.link {
+    color: black;
+}

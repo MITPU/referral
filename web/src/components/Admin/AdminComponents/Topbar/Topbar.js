@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Topbar.css';
 import SearchBar from './SearchBar';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 function Topbar() {
     return (
@@ -13,16 +13,6 @@ function Topbar() {
           </Col>
         </Row>
       </div>
-        // <React.Fragment>
-        //     <div className={classes.container}>
-        //       <div className={classes.title}>
-        //       <p>MITPU Applicant Tracking System</p>
-        //       </div>
-        //       <div className={classes.search}>
-        //         <SearchBar />
-        //       </div>
-        //     </div>
-        // </React.Fragment>
     )
 }
 
