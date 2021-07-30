@@ -19,7 +19,7 @@
     color: black;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
     .NavigationItem {
         margin: 0;
         display: flex;
@@ -39,7 +39,7 @@
     .NavigationItem a:active,
     .NavigationItem a.active {
         background-color: #0c5b95;
-        border-bottom: 4px solid #cbdcea;
+        margin-top: -5px;
         color: white;
     }
 }

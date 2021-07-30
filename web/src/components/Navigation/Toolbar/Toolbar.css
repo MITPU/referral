@@ -1,5 +1,5 @@
 .Toolbar {
-    height: 56px;
+    height: 60px;
     width: 100%;
     position: fixed;
     top: 0;
@@ -18,10 +18,10 @@
 }
 
 .Logo {
-    height: 80%;
+    height: 100%;
 }
 
-@media (max-width: 499px) {
+@media (max-width: 600px) {
     .DesktopOnly {
         display: none;
     }

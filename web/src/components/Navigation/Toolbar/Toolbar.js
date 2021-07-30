@@ -9,7 +9,7 @@ const toolbar = (props) => (
     <header className={classes.Toolbar}>
         <DrawerToggle clicked={props.drawerToggleClicked} />
         <div className={classes.Logo}>
-            <Logo height="79%" />
+            <Logo height="90%" />
         </div>
         <nav className={classes.DesktopOnly}>
             <NavigationItems />

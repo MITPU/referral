@@ -1,5 +1,4 @@
 import React from 'react';
-
 import classes from './NavigationItem.css';
 
 const navigationItem = (props) => (
@@ -10,4 +9,4 @@ const navigationItem = (props) => (
     </li>
 );
 
-export default navigationItem
+export default navigationItem;
