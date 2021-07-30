@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./SelectedCandidate.css";
+import NotesModal from '../../AdminComponents/SelectedCandidate/Notes/NotesModal';
 
 function SelectedCandidate(props) {
   const selectedId = props.match.params.id;
@@ -9,19 +10,22 @@ function SelectedCandidate(props) {
   return (
     <Container>
       <Row>
-        <Col className={classes.container} >
-          <div>Name: {candidate.firstname + " " + candidate.lastname}</div>
-          <div>Phone: {candidate.phone}</div>
-          <div>Email: {candidate.email}</div>
-          <div>Address: {candidate.city + ", " + candidate.state + " " + candidate.country}</div>
-          <div>Work Authorization: {candidate.workAuthorization}</div>
-          <div>LinkedIn: {candidate.linkedin}</div>
+        <Col className={classes.container}>
+          <p><b>Name: </b> {candidate.firstname + " " + candidate.lastname}</p>
+          <p><b>Phone: </b> {candidate.phone}</p>
+          <p><b>Email: </b> {candidate.email}</p>
+          <p>
+            <b>Address: </b> 
+            {candidate.city + ", " + candidate.state + " " + candidate.country}
+          </p>
+          <p><b> Work Authorization: </b> {candidate.workAuthorization}</p>
+          <p><b> LinkedIn: </b> {candidate.linkedin}</p>
         </Col>
         <Col className={classes.container}>
-            Status:
-            <p>(Participation status)</p>
-            Stage:
-            <p>{candidate.status}</p>
+          <b>Status: </b>
+          <p>(Participation status)</p>
+          <b>Stage: </b>
+          <p>{candidate.status}</p>
         </Col>
       </Row>
       <Row>
@@ -31,7 +35,9 @@ function SelectedCandidate(props) {
         <Col className={classes.container}>Engagement</Col>
       </Row>
       <Row>
-        <Col className={classes.container}>Notes</Col>
+      <Col className={classes.container}>Notes
+        <NotesModal />
+      </Col>
       </Row>
       <Row>
         <Col className={classes.container}>Skills</Col>

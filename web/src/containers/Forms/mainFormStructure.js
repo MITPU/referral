@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import { fetchCOMPANIES } from "../../store/actions";
 import { fetchSKILLS } from "../../store/actions";
 import { fetchCANDIDATES } from "../../store/actions";
-import { fetchCANDIDATE } from '../../store/actions';
 
 class FormBuilder extends Component {
   state = {
@@ -27,6 +26,13 @@ class FormBuilder extends Component {
   }
 
   render() {
+
+    const Notes = ({match}) => {
+      return (
+        <Notes addNotes={this.props.addNotes}/>
+      )
+    }
+
     return (
       <div>
         <Aux>
